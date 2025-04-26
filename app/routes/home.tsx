@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import type { Route } from "./+types/home";
 import { useNavigate } from "react-router";
@@ -7,7 +5,6 @@ import { ArrowRight, ArrowLeft, Check, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Progress } from "~/components/ui/progress";
 import { Button } from "~/components/ui/button";
-import DemographyGrid from "~/components/Demography/DemographyGrid";
 import LocationGrid from "~/components/Location/LocationGrid";
 import HostGrid from "~/components/Host/HostGrid";
 import ElementGrid from "~/components/Element/ElementGrid";
@@ -16,6 +13,10 @@ import type { Location } from "backend/dataset/locations";
 import type { Element } from "backend/dataset/elements";
 import type { Participant } from "backend/dataset/participants";
 import toast from "react-hot-toast";
+import ParticipantGrid from "~/components/Participant/ParticipantGrid";
+import DemographicGrid from "~/components/Demographic/DemographicGrid";
+import type { Demography } from "backend/dataset/demography";
+import Result from "~/components/Result/Result";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Reniew" }];
@@ -23,50 +24,25 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(0);
   const [selectedHost, setSelectedHost] = useState<Host | null>(null);
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(
     null
   );
   const [selectedElement, setSelectedElement] = useState<Element | null>(null);
-  const [selectedDemography, setSelectedDemography] =
+  const [selectedParticipant, setSelectedParticipant] =
     useState<Participant | null>(null);
+
+  const [selectedDemography, setSelectedDemography] =
+    useState<Demography | null>(null);
+
+  const [response, setResponse] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const totalSteps = 5;
   const progress = (currentStep / totalSteps) * 100;
 
   const goToNextStep = () => {
-    switch (currentStep) {
-      case 1:
-        if (!selectedDemography) {
-          toast.error("Vennligst velg en målgruppe.");
-          return;
-        }
-        break;
-      case 2:
-        if (!selectedElement) {
-          toast.error("Vennligst velg et element.");
-          return;
-        }
-        break;
-      case 3:
-        if (!selectedLocation) {
-          toast.error("Vennligst velg et sted.");
-          return;
-        }
-        break;
-      case 4:
-        if (!selectedHost) {
-          toast.error("Vennligst velg en vert.");
-          return;
-        }
-        break;
-      case 5:
-        break;
-      default:
-        break;
-    }
-
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -74,19 +50,63 @@ export default function Home() {
   };
 
   const goToPreviousStep = () => {
-    if (currentStep > 1) {
+    if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   const steps = [
-    { number: 1, title: "Målgrupper" },
+    {
+      number: 0,
+      title: "Velg demografi",
+    },
+    { number: 1, title: "Deltakere" },
     { number: 2, title: "Elementer" },
     { number: 3, title: "Steder" },
     { number: 4, title: "Vert" },
     { number: 5, title: "Resultat" },
   ];
+
+  const handleFinish = async () => {
+    if (!selectedDemography || !selectedElement || !selectedLocation) {
+      toast.error("Vennligst velg alle alternativer.");
+      return;
+    }
+
+    const toProcess = {
+      demography: selectedDemography,
+      element: selectedElement,
+      location: selectedLocation,
+      host: selectedHost,
+      participant: selectedParticipant,
+    };
+
+    try {
+      setIsLoading(true);
+      const response = await fetch("/api/ai", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ toProcess }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+
+      setResponse(data.response);
+      toast.success("TV programmet er klart!");
+    } catch (error) {
+      console.error("Error fetching AI response:", error);
+      toast.error("Noe gikk galt. Vennligst prøv igjen.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
@@ -148,10 +168,17 @@ export default function Home() {
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
         >
+          {currentStep === 0 && (
+            <DemographicGrid
+              selectedDemographic={selectedDemography}
+              setSelectedDemographic={setSelectedDemography}
+            />
+          )}
+
           {currentStep === 1 && (
-            <DemographyGrid
-              selectedDemography={selectedDemography}
-              setSelectedDemography={setSelectedDemography}
+            <ParticipantGrid
+              selectedParticipant={selectedParticipant}
+              setSelectedParticipant={setSelectedParticipant}
             />
           )}
 
@@ -177,72 +204,20 @@ export default function Home() {
           )}
 
           {currentStep === 5 && (
-            <div className="space-y-8">
-              <div className="flex items-center justify-between">
-                <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-                  Resultat
-                </h1>
-                <div className="text-sm text-gray-500">Steg 5</div>
-              </div>
-
-              <div className="bg-white rounded-xl shadow-sm border p-6">
-                <div className="text-center py-8">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
-                    <Check className="w-8 h-8 text-green-600" />
-                  </div>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                    Ditt TV program er klart!
-                  </h2>
-                  <p className="text-gray-600 max-w-md mx-auto mb-8">
-                    Vi har satt sammen det perfekte TV program basert på dine
-                    valg.
-                  </p>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-3xl mx-auto">
-                    {selectedLocation && (
-                      <div className="bg-gray-50 p-4 rounded-lg">
-                        <h3 className="font-medium text-gray-900 mb-2">Sted</h3>
-                        <p className="text-gray-700">{selectedLocation.name}</p>
-                      </div>
-                    )}
-
-                    {selectedHost && (
-                      <div className="bg-gray-50 p-4 rounded-lg">
-                        <h3 className="font-medium text-gray-900 mb-2">Vert</h3>
-                        <p className="text-gray-700">{selectedHost.name}</p>
-                      </div>
-                    )}
-
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                      <h3 className="font-medium text-gray-900 mb-2">
-                        Målgruppe
-                      </h3>
-                      <p className="text-gray-700">Unge voksne</p>
-                    </div>
-                  </div>
-
-                  <Button
-                    className="mt-8 cursor-pointer"
-                    size="lg"
-                    onClick={() => {
-                      console.log(
-                        selectedDemography,
-                        selectedElement,
-                        selectedLocation,
-                        selectedHost
-                      );
-                    }}
-                  >
-                    Se detaljer
-                  </Button>
-                </div>
-              </div>
-            </div>
+            <Result
+              isLoading={isLoading}
+              response={response}
+              selectedLocation={selectedLocation}
+              selectedHost={selectedHost}
+              selectedDemography={selectedDemography}
+              selectedElement={selectedElement}
+              selectedParticipant={selectedParticipant}
+            />
           )}
         </motion.div>
 
         <div className="flex justify-between mt-12 mb-8">
-          {currentStep > 1 ? (
+          {currentStep > 0 ? (
             <Button
               variant="outline"
               onClick={goToPreviousStep}
@@ -263,7 +238,7 @@ export default function Home() {
             </Button>
           ) : (
             <Button
-              onClick={() => navigate("/complete")}
+              onClick={handleFinish}
               className="flex items-center gap-2 cursor-pointer bg-green-700 hover:bg-green-800 text-white"
             >
               Fullfør <Check className="w-4 h-4" />

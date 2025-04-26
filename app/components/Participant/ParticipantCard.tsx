@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import type { Participant } from "backend/dataset/participants";
 import { Progress } from "../ui/progress";
@@ -45,14 +43,14 @@ import toast from "react-hot-toast";
 
 interface Props {
   participant: Participant;
-  selectedDemography: Participant | null;
-  setSelectedDemography: (demography: Participant | null) => void;
+  selectedParticipant: Participant | null;
+  setSelectedParticipant: (demography: Participant | null) => void;
 }
 
-const DemographyCard = ({
+const ParticipantCard = ({
   participant,
-  selectedDemography,
-  setSelectedDemography,
+  selectedParticipant,
+  setSelectedParticipant,
 }: Props) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -137,14 +135,14 @@ const DemographyCard = ({
     <>
       <div
         key={participant.name}
-        className={`relative cursor-pointer transition-all rounded-xl duration-300 ${
-          selectedDemography?.name === participant.name
+        className={`relative cursor-pointer transition-all bg-white border rounded-lg hover:shadow-md  duration-300 ${
+          selectedParticipant?.name === participant.name
             ? "ring-2 ring-blue-500 scale-[1.02]"
             : "hover:shadow-lg"
         }`}
       >
         <div
-          className="bg-white border rounded-lg p-4 cursor-pointer hover:border-blue-500 hover:shadow-md transition-all"
+          className=" p-4 cursor-pointer hover:border-blue-500  transition-all"
           onClick={() => setDialogOpen(true)}
         >
           <h3 className="font-medium text-gray-800">{participant.name}</h3>
@@ -165,13 +163,13 @@ const DemographyCard = ({
         <button
           onClick={() => {
             toast.success(`Du har valgt ${participant.name} som demografi!`);
-            setSelectedDemography(participant);
+            setSelectedParticipant(participant);
           }}
-          className="w-full bg-gray-100 flex justify-end p-2"
+          className="w-full  flex justify-end p-2"
         >
           <PlusCircle
             className={`w-6 h-6  transition-all duration-300 ${
-              selectedDemography?.name === participant.name
+              selectedParticipant?.name === participant.name
                 ? "text-blue-500 rotate-90"
                 : "hover:text-blue-500 text-gray-500 group-hover:rotate-90"
             }`}
@@ -490,7 +488,7 @@ const DemographyCard = ({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Målgruppe Analyse</CardTitle>
+                    <CardTitle>Deltaker Analyse</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
@@ -603,4 +601,4 @@ const DemographyCard = ({
   );
 };
 
-export default DemographyCard;
+export default ParticipantCard;
