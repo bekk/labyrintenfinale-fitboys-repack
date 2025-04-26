@@ -92,17 +92,11 @@ const ElementCard = ({
             </div>
           </div>
           <div className="p-4">
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-500">Popularitet</span>
-                <span className="text-gray-800">{0}%</span>
-              </div>
-              <Progress value={0} className="h-1.5" />
-            </div>
-
             <div className="space-y-2 mt-2">
               <div className="flex justify-between text-sm">
-                <span className="text-gray-500">Demografi (Gjennomsnitt)</span>
+                <span className="text-gray-500">
+                  Popularitet (Gjennomsnitt)
+                </span>
                 <span className="text-gray-800">
                   {averageDemographicScore.toFixed(1)}%
                 </span>

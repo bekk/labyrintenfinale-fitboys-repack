@@ -273,7 +273,7 @@ const ParticipantCard = ({
                             color: "hsl(var(--chart-1))",
                           },
                         }}
-                        className="h-[200px]"
+                        className=""
                       >
                         <BarChart
                           accessibilityLayer
@@ -452,10 +452,10 @@ const ParticipantCard = ({
                         color: "hsl(var(--chart-4))",
                       },
                     }}
-                    className="h-[300px]"
                   >
                     <LineChart
                       data={trendData}
+                      className="w-full "
                       margin={{ top: 20, right: 30, left: 20, bottom: 30 }}
                     >
                       <CartesianGrid strokeDasharray="3 3" />

@@ -11,6 +11,7 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import Navbar from "./components/Navbar";
 import { Toaster } from "react-hot-toast";
+import Footer from "./components/Footer";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -25,6 +26,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Toaster />
         <Navbar />
         {children}
+        <Footer />
         <ScrollRestoration />
         <Scripts />
       </body>

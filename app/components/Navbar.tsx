@@ -13,13 +13,13 @@ import { cn } from "~/lib/utils";
 
 const navlinks = [
   {
-    name: "Hjem",
-    path: "/",
+    name: "Start",
+    path: "/start",
     icon: <Sparkles className="mr-1 h-4 w-4" />,
   },
   {
     name: "Om oss",
-    path: "/om-oss",
+    path: "/",
     icon: <Brain className="mr-1 h-4 w-4" />,
   },
   {
@@ -49,7 +49,7 @@ const Navbar = () => {
               >
                 Reniew
                 <span className="ml-2 text-sm font-normal text-gray-500">
-                  Framtiden av norsk TV
+                  Framtiden til norsk TV
                 </span>
               </a>
             </div>
