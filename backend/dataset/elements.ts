@@ -1,13 +1,13 @@
 import type { Demography } from "./demography";
 
-type Concept = {
+type Element = {
   name: string;
   image: string;
   description: string;
   demographics: Demography[];
 };
 
-const concepts: Concept[] = [
+const elements: Element[] = [
   {
     name: "Utstemming",
     image: "/images/utstemming.jpg",

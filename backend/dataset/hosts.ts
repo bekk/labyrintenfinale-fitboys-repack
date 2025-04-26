@@ -3,7 +3,7 @@ import type { Demography } from "./demography";
 export type Host = {
   name: string;
   image: string;
-  position: string;
+  // position: string;
   description: string;
   demographics: Demography[];
 };
