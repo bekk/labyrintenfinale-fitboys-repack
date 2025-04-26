@@ -5,4 +5,5 @@ export default [
   route("/hjelp", "routes/help.tsx"),
   route("/more-info", "routes/more-info.tsx"),
   route("/om-oss", "routes/om-oss.tsx"),
+  route("/kontakt", "routes/kontakt.tsx"),
 ] satisfies RouteConfig;
