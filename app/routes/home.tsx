@@ -35,6 +35,8 @@ export default function Home() {
   const [selectedDemography, setSelectedDemography] =
     useState<Demography | null>(null);
 
+  const [response, setResponse] = useState<string | null>(null);
+
   const totalSteps = 5;
   const progress = (currentStep / totalSteps) * 100;
 
@@ -64,19 +66,42 @@ export default function Home() {
     { number: 5, title: "Resultat" },
   ];
 
-  const handleFinish = () => {
+  const handleFinish = async () => {
     if (!selectedDemography || !selectedElement || !selectedLocation) {
       toast.error("Vennligst velg alle alternativer.");
       return;
     }
 
-    //API kall her
-    console.log(
-      selectedDemography,
-      selectedElement,
-      selectedLocation,
-      selectedHost
-    );
+    const toProcess = {
+      demography: selectedDemography,
+      element: selectedElement,
+      location: selectedLocation,
+      host: selectedHost,
+      participant: selectedParticipant,
+    };
+
+    try {
+      const response = await fetch("/api/ai", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ toProcess }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      console.log(data);
+
+      setResponse(data.response);
+      toast.success("TV programmet er klart!");
+    } catch (error) {
+      console.error("Error fetching AI response:", error);
+      toast.error("Noe gikk galt. Vennligst prøv igjen.");
+    }
   };
 
   return (
@@ -195,6 +220,8 @@ export default function Home() {
                     Vi har satt sammen det perfekte TV program basert på dine
                     valg.
                   </p>
+
+                  <p>{response}</p>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-3xl mx-auto">
                     {selectedLocation && (
