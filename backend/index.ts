@@ -1,7 +1,7 @@
 import express, { type Request, type Response } from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import tipsRoute from "./api/tips";
+import aiRoute from "./api/ai";
 
 // Create __filename and __dirname since they are not available in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -15,12 +15,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Let tipsRoute handle all routes under /api
-app.use("/api", tipsRoute);
+app.use("/api", aiRoute);
 
 // Serve static files for the built React app
 const buildPath = path.resolve(__dirname, "..", ".", "build/client");
 app.use("/", express.static(buildPath));
-
 
 // Catch-all to serve index.html for any other route
 app.use("*", (_: Request, res: Response) =>
