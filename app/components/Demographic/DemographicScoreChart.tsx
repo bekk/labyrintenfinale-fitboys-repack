@@ -1,14 +1,16 @@
+"use client";
+
 import { Bar, BarChart, XAxis, YAxis } from "recharts";
 import type { Demography } from "../../../backend/dataset/demography";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "../ui/chart";
 
-interface DemographicBarChartProps {
+interface DemographicScoreChartProps {
   demographics: Demography[];
 }
 
-export function DemographicBarChart({
+export function DemographicScoreChart({
   demographics,
-}: DemographicBarChartProps) {
+}: DemographicScoreChartProps) {
   const chartData = demographics.map((item) => ({
     name: item.ageGroup,
     score: item.score,
@@ -51,7 +53,7 @@ export function DemographicBarChart({
           dataKey="score"
           fill="var(--color-score)"
           radius={[4, 4, 0, 0]}
-          barSize={30}
+          barSize={40}
         />
       </BarChart>
     </ChartContainer>

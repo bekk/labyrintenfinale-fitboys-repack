@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { Dialog, DialogContent, DialogTitle } from "../ui/dialog";
 import { Users, Info, PlusCircle } from "lucide-react";

@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { Menu, X, User, Settings, Globe } from "lucide-react";
 import { cn } from "~/lib/utils";

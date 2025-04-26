@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { PlusCircle, User, BarChart3, PieChart, Activity } from "lucide-react";
 import type { Host } from "../../../backend/dataset/hosts";

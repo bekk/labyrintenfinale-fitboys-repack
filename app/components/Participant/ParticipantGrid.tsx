@@ -2,13 +2,13 @@ import { participants, type Participant } from "backend/dataset/participants";
 import ParticipantCard from "./ParticipantCard";
 
 interface Props {
-  selectedDemography: Participant | null;
-  setSelectedDemography: (demography: Participant | null) => void;
+  selectedParticipant: Participant | null;
+  setSelectedParticipant: (demography: Participant | null) => void;
 }
 
 const ParticipantGrid = ({
-  selectedDemography,
-  setSelectedDemography,
+  selectedParticipant,
+  setSelectedParticipant,
 }: Props) => {
   return (
     <div className="space-y-8">
@@ -20,8 +20,8 @@ const ParticipantGrid = ({
             <ParticipantCard
               key={participant.name}
               participant={participant}
-              selectedDemography={selectedDemography}
-              setSelectedDemography={setSelectedDemography}
+              selectedParticipant={selectedParticipant}
+              setSelectedParticipant={setSelectedParticipant}
             />
           ))}
         </div>
