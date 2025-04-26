@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Dialog, DialogContent, DialogTitle } from "./ui/dialog";
-import { MapPin, Users, Info, ArrowRight } from "lucide-react";
-import type { Location } from "../../backend/dataset/locations";
+import { Dialog, DialogContent, DialogTitle } from "../ui/dialog";
+import { Users, Info, ArrowRight } from "lucide-react";
+import type { Location } from "../../../backend/dataset/locations";
 import {
   Bar,
   BarChart,

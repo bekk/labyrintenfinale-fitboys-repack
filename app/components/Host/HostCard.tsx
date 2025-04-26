@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 import { User } from "lucide-react";
-import type { Host } from "../../backend/dataset/hosts";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
+import type { Host } from "../../../backend/dataset/hosts";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 
 interface Props {
   host: Host;
