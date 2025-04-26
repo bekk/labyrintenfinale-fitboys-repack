@@ -14,6 +14,8 @@ import ElementGrid from "~/components/Element/ElementGrid";
 import type { Host } from "backend/dataset/hosts";
 import type { Location } from "backend/dataset/locations";
 import type { Element } from "backend/dataset/elements";
+import type { Participant } from "backend/dataset/participants";
+import toast from "react-hot-toast";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Reniew" }];
@@ -27,11 +29,44 @@ export default function Home() {
     null
   );
   const [selectedElement, setSelectedElement] = useState<Element | null>(null);
+  const [selectedDemography, setSelectedDemography] =
+    useState<Participant | null>(null);
 
   const totalSteps = 5;
   const progress = (currentStep / totalSteps) * 100;
 
   const goToNextStep = () => {
+    switch (currentStep) {
+      case 1:
+        if (!selectedDemography) {
+          toast.error("Vennligst velg en målgruppe.");
+          return;
+        }
+        break;
+      case 2:
+        if (!selectedElement) {
+          toast.error("Vennligst velg et element.");
+          return;
+        }
+        break;
+      case 3:
+        if (!selectedLocation) {
+          toast.error("Vennligst velg et sted.");
+          return;
+        }
+        break;
+      case 4:
+        if (!selectedHost) {
+          toast.error("Vennligst velg en vert.");
+          return;
+        }
+        break;
+      case 5:
+        break;
+      default:
+        break;
+    }
+
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -113,7 +148,12 @@ export default function Home() {
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
         >
-          {currentStep === 1 && <DemographyGrid />}
+          {currentStep === 1 && (
+            <DemographyGrid
+              selectedDemography={selectedDemography}
+              setSelectedDemography={setSelectedDemography}
+            />
+          )}
 
           {currentStep === 2 && (
             <ElementGrid
@@ -184,7 +224,14 @@ export default function Home() {
                   <Button
                     className="mt-8 cursor-pointer"
                     size="lg"
-                    onClick={() => {}}
+                    onClick={() => {
+                      console.log(
+                        selectedDemography,
+                        selectedElement,
+                        selectedLocation,
+                        selectedHost
+                      );
+                    }}
                   >
                     Se detaljer
                   </Button>
