@@ -20,9 +20,7 @@ const DemographyGrid = ({
       </div>
 
       <div className="bg-white rounded-xl shadow-sm border p-6">
-        <p className="text-gray-600 mb-6">
-          Velg målgruppen for ditt arrangement.
-        </p>
+        <p className="text-gray-600 mb-6">Velg målgruppe.</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {participants.map((participant) => (
