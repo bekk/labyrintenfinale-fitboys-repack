@@ -9,11 +9,11 @@ import "dotenv/config";
 
 interface AiRequestBody {
   toProcess: {
-    demography: Demography;
-    element: Element;
-    location: Location;
-    host: Host;
-    participant: Participant;
+    demography?: Demography;
+    element?: Element;
+    location?: Location;
+    host?: Host;
+    participant?: Participant;
   };
 }
 
@@ -30,32 +30,33 @@ aiRoute.post("/ai", async (req: Request, res: Response) => {
     const prompt = `Du er en ekspert innenfor tv og underholdning i Norge. Ved å bruke dataen til slutt i denne meldingen skal du slå sammen deltagere, elementer, lokasjon og en vert til å lage et nytt og spennende tv-show. Vær kreativ og ikke nødvendigvis bare begrens deg til de typiske trekkene ved disse valgene. Forslagene burde ta for seg typiske trekk ved målgruppen, eventuelt men ikke nødvendig også samfunnsrelevans. Dersom en tv-serie som har blitt lagd før likner på denne kombinasjonen, skal du skrive dette, og si hvilken tv serie den likner på. Da skal du også komme med forslag til endringer, eller en vri på dette tidligere showet. Du skal også bruke "score" som de forskjellige valgene har ovenfor målgruppen jeg gir deg for å gi en kombinert score. Hvis målgruppen som er oppgitt ikke passer til tv-showet, kan du skrive dette og komme med et forslag til annen målgruppe, eller endringer av valg som kan gjøre det mer egnet. Du får det i rekkefølgen: Målgruppe, Deltagere, Elementer, Lokasjon og Vert.`;
 
     const promptData = `
-    Målgruppe: ${toProcess.demography.ageGroup} (Score: ${
-      toProcess.demography.score
+    
+    Målgruppe: ${toProcess.demography?.ageGroup} (Score: ${
+      toProcess.demography?.score
     })
-    Deltagere: ${toProcess.participant.name} - ${
-      toProcess.participant.description
+    Deltagere: ${toProcess.participant?.name} - ${
+      toProcess.participant?.description
     } (Score for målgruppen: ${findScoreForAgeGroup(
-      toProcess.participant.demographics,
-      toProcess.demography.ageGroup
+      toProcess.participant?.demographics,
+      toProcess.demography?.ageGroup
     )})
-    Elementer: ${toProcess.element.name} - ${
-      toProcess.element.description
+    Elementer: ${toProcess.element?.name} - ${
+      toProcess.element?.description
     } (Score for målgruppen: ${findScoreForAgeGroup(
-      toProcess.element.demographics,
-      toProcess.demography.ageGroup
+      toProcess.element?.demographics,
+      toProcess.demography?.ageGroup
     )})
-    Lokasjon: ${toProcess.location.name} - ${
-      toProcess.location.description
+    Lokasjon: ${toProcess.location?.name} - ${
+      toProcess.location?.description
     } (Score for målgruppen: ${findScoreForAgeGroup(
-      toProcess.location.demographics,
-      toProcess.demography.ageGroup
+      toProcess.location?.demographics,
+      toProcess.demography?.ageGroup
     )})
-    Vert: ${toProcess.host.name} - ${
-      toProcess.host.description
+    Vert: ${toProcess.host?.name} - ${
+      toProcess.host?.description
     } (Score for målgruppen: ${findScoreForAgeGroup(
-      toProcess.host.demographics,
-      toProcess.demography.ageGroup
+      toProcess.host?.demographics,
+      toProcess.demography?.ageGroup
     )})
     `;
 
@@ -76,9 +77,12 @@ aiRoute.post("/ai", async (req: Request, res: Response) => {
 });
 
 function findScoreForAgeGroup(
-  demographics: { ageGroup: string; score: number }[],
-  ageGroup: string
+  demographics?: Demography[],
+  ageGroup?: string
 ): number {
+  if (!demographics || !ageGroup) {
+    return 0;
+  }
   const demographic = demographics.find((d) => d.ageGroup === ageGroup);
   return demographic ? demographic.score : 0;
 }

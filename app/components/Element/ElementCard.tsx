@@ -76,14 +76,14 @@ const ElementCard = ({
   return (
     <>
       <div
-        className={`relative cursor-pointer group transition-all rounded-xl duration-300 ${
-          selectedElement?.name === name
+        className={`relative cursor-pointer border group transition-all bg-white hover:shadow-md rounded-xl duration-300 ${
+          selectedElement?.name === element.name
             ? "ring-2 ring-blue-500 scale-[1.02]"
             : "hover:shadow-lg"
         }`}
       >
         <div
-          className="bg-white border rounded-lg overflow-hidden cursor-pointer hover:border-blue-500 hover:shadow-md transition-all"
+          className="   overflow-hidden cursor-pointer hover:border-blue-500  transition-all"
           onClick={() => setDialogOpen(true)}
         >
           <div className="bg-gray-100 relative">
@@ -116,7 +116,7 @@ const ElementCard = ({
             toast.success(`Du har valgt ${element.name} som element!`);
             setSelectedElement(element);
           }}
-          className="w-full bg-gray-100 flex justify-end p-2"
+          className="w-full  flex justify-end p-2"
         >
           <PlusCircle
             className={`w-6 h-6  transition-all duration-300 ${
