@@ -1,10 +1,7 @@
-"use client";
-
 import { useState } from "react";
 import { Bar, BarChart, XAxis } from "recharts";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "../ui/chart";
 import { PieChart, Pie, Cell } from "recharts";
-import type { Demography } from "backend/dataset/demography";
 import { Progress } from "../ui/progress";
 import {
   Dialog,
@@ -29,23 +26,31 @@ import {
   Legend,
   Tooltip,
 } from "recharts";
+import { PlusCircle } from "lucide-react";
+import type { Element } from "../../../backend/dataset/elements";
+import toast from "react-hot-toast";
 
 interface Props {
-  name: string;
-  demographics: Demography[];
-  popularity?: number;
+  element: Element;
+
+  selectedElement: Element | null;
+  setSelectedElement: (element: Element | null) => void;
 }
 
-const ElementCard = ({ name, demographics, popularity = 0 }: Props) => {
+const ElementCard = ({
+  element,
+  selectedElement,
+  setSelectedElement,
+}: Props) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const averageDemographicScore =
-    demographics.length > 0
-      ? demographics.reduce((sum, item) => sum + item.score, 0) /
-        demographics.length
+    element.demographics.length > 0
+      ? element.demographics.reduce((sum, item) => sum + item.score, 0) /
+        element.demographics.length
       : 0;
 
-  const pieData = demographics.map((item) => ({
+  const pieData = element.demographics.map((item) => ({
     name: item.ageGroup,
     value: item.score,
   }));
@@ -71,44 +76,66 @@ const ElementCard = ({ name, demographics, popularity = 0 }: Props) => {
   return (
     <>
       <div
-        key={name}
-        className="bg-white border rounded-lg overflow-hidden cursor-pointer hover:border-blue-500 hover:shadow-md transition-all"
-        onClick={() => setDialogOpen(true)}
+        className={`relative cursor-pointer group transition-all rounded-xl duration-300 ${
+          selectedElement?.name === name
+            ? "ring-2 ring-blue-500 scale-[1.02]"
+            : "hover:shadow-lg"
+        }`}
       >
-        <div className="bg-gray-100 relative">
+        <div
+          className="bg-white border rounded-lg overflow-hidden cursor-pointer hover:border-blue-500 hover:shadow-md transition-all"
+          onClick={() => setDialogOpen(true)}
+        >
+          <div className="bg-gray-100 relative">
+            <div className="p-4">
+              <h3 className="text-black text-2xl font-bold">{element.name}</h3>
+            </div>
+          </div>
           <div className="p-4">
-            <h3 className="text-black text-2xl font-bold">{name}</h3>
-          </div>
-        </div>
-        <div className="p-4">
-          <div className="space-y-2">
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Popularitet</span>
-              <span className="text-gray-800">{popularity}%</span>
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-500">Popularitet</span>
+                <span className="text-gray-800">{0}%</span>
+              </div>
+              <Progress value={0} className="h-1.5" />
             </div>
-            <Progress value={popularity} className="h-1.5" />
-          </div>
 
-          <div className="space-y-2 mt-2">
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Demografi (Gjennomsnitt)</span>
-              <span className="text-gray-800">
-                {averageDemographicScore.toFixed(1)}%
-              </span>
+            <div className="space-y-2 mt-2">
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-500">Demografi (Gjennomsnitt)</span>
+                <span className="text-gray-800">
+                  {averageDemographicScore.toFixed(1)}%
+                </span>
+              </div>
+              <Progress value={averageDemographicScore} className="h-1.5" />
             </div>
-            <Progress value={averageDemographicScore} className="h-1.5" />
           </div>
         </div>
+        <button
+          onClick={() => {
+            toast.success(`Du har valgt ${element.name} som element!`);
+            setSelectedElement(element);
+          }}
+          className="w-full bg-gray-100 flex justify-end p-2"
+        >
+          <PlusCircle
+            className={`w-6 h-6  transition-all duration-300 ${
+              selectedElement?.name === element.name
+                ? "text-blue-500 rotate-90"
+                : "hover:text-blue-500 text-gray-500 group-hover:rotate-90"
+            }`}
+          />
+        </button>
       </div>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="sm:max-w-[800px] h-[80vh] overflow-y-auto p-4">
           <DialogHeader>
             <DialogTitle className="text-2xl">
-              {name} - Detaljert Analyse
+              {element.name} - Detaljert Analyse
             </DialogTitle>
             <DialogDescription>
-              Utforsk detaljert demografisk data og trender for {name}.
+              Utforsk detaljert demografisk data og trender for {element.name}.
             </DialogDescription>
           </DialogHeader>
 
@@ -129,8 +156,8 @@ const ElementCard = ({ name, demographics, popularity = 0 }: Props) => {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-3xl font-bold">{popularity}%</div>
-                    <Progress value={popularity} className="h-2 mt-2" />
+                    <div className="text-3xl font-bold">{0}%</div>
+                    <Progress value={0} className="h-2 mt-2" />
                   </CardContent>
                 </Card>
 
@@ -220,7 +247,7 @@ const ElementCard = ({ name, demographics, popularity = 0 }: Props) => {
                   >
                     <BarChart
                       accessibilityLayer
-                      data={demographics.map((item) => ({
+                      data={element.demographics.map((item) => ({
                         ageGroup: item.ageGroup,
                         score: item.score,
                       }))}
@@ -253,7 +280,7 @@ const ElementCard = ({ name, demographics, popularity = 0 }: Props) => {
               </Card>
 
               <div className="grid grid-cols-2 gap-4">
-                {demographics.map((demo) => (
+                {element.demographics.map((demo) => (
                   <Card key={demo.ageGroup}>
                     <CardHeader className="pb-2">
                       <CardTitle className="text-lg">
@@ -355,11 +382,11 @@ const ElementCard = ({ name, demographics, popularity = 0 }: Props) => {
                     <div>
                       <h4 className="font-medium">Prognose</h4>
                       <p className="text-gray-700 mt-1">
-                        Basert på nåværende trender, forventes {name} å
+                        Basert på nåværende trender, forventes {element.name} å
                         fortsette en positiv vekst i de kommende månedene. Den
                         sterkeste veksten ser ut til å være i aldersgruppen{" "}
                         {
-                          demographics.reduce((prev, current) =>
+                          element.demographics.reduce((prev, current) =>
                             prev.score > current.score ? prev : current
                           ).ageGroup
                         }

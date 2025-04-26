@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import type { Participant } from "backend/dataset/participants";
 import { Progress } from "../ui/progress";
@@ -33,13 +31,27 @@ import {
   Pie,
   Cell,
 } from "recharts";
-import { User, TrendingUp, DollarSign, Users, Target } from "lucide-react";
+import {
+  User,
+  TrendingUp,
+  DollarSign,
+  Users,
+  Target,
+  PlusCircle,
+} from "lucide-react";
+import toast from "react-hot-toast";
 
 interface Props {
   participant: Participant;
+  selectedParticipant: Participant | null;
+  setSelectedParticipant: (demography: Participant | null) => void;
 }
 
-const DemographyCard = ({ participant }: Props) => {
+const ParticipantCard = ({
+  participant,
+  selectedParticipant,
+  setSelectedParticipant,
+}: Props) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const averageDemographicScore =
@@ -122,23 +134,47 @@ const DemographyCard = ({ participant }: Props) => {
   return (
     <>
       <div
-        className="bg-white border rounded-lg p-4 cursor-pointer hover:border-blue-500 hover:shadow-md transition-all"
-        onClick={() => setDialogOpen(true)}
+        key={participant.name}
+        className={`relative cursor-pointer transition-all bg-white border rounded-lg hover:shadow-md  duration-300 ${
+          selectedParticipant?.name === participant.name
+            ? "ring-2 ring-blue-500 scale-[1.02]"
+            : "hover:shadow-lg"
+        }`}
       >
-        <h3 className="font-medium text-gray-800">{participant.name}</h3>
-        <div className="mt-3 space-y-2">
-          <div className="flex justify-between text-sm">
-            <span className="text-gray-500">Interesse</span>
-            <span className="text-gray-800">{interestLevel.text}</span>
-          </div>
-          <Progress value={interestLevel.value} className="h-1.5" />
+        <div
+          className=" p-4 cursor-pointer hover:border-blue-500  transition-all"
+          onClick={() => setDialogOpen(true)}
+        >
+          <h3 className="font-medium text-gray-800">{participant.name}</h3>
+          <div className="mt-3 space-y-2">
+            <div className="flex justify-between text-sm">
+              <span className="text-gray-500">Interesse</span>
+              <span className="text-gray-800">{interestLevel.text}</span>
+            </div>
+            <Progress value={interestLevel.value} className="h-1.5" />
 
-          <div className="flex justify-between text-sm">
-            <span className="text-gray-500">Lønnsomhet</span>
-            <span className="text-gray-800">{profitability.text}</span>
+            <div className="flex justify-between text-sm">
+              <span className="text-gray-500">Lønnsomhet</span>
+              <span className="text-gray-800">{profitability.text}</span>
+            </div>
+            <Progress value={profitability.value} className="h-1.5" />
           </div>
-          <Progress value={profitability.value} className="h-1.5" />
         </div>
+        <button
+          onClick={() => {
+            toast.success(`Du har valgt ${participant.name} som demografi!`);
+            setSelectedParticipant(participant);
+          }}
+          className="w-full  flex justify-end p-2"
+        >
+          <PlusCircle
+            className={`w-6 h-6  transition-all duration-300 ${
+              selectedParticipant?.name === participant.name
+                ? "text-blue-500 rotate-90"
+                : "hover:text-blue-500 text-gray-500 group-hover:rotate-90"
+            }`}
+          />
+        </button>
       </div>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -452,7 +488,7 @@ const DemographyCard = ({ participant }: Props) => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Målgruppe Analyse</CardTitle>
+                    <CardTitle>Deltaker Analyse</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
@@ -565,4 +601,4 @@ const DemographyCard = ({ participant }: Props) => {
   );
 };
 
-export default DemographyCard;
+export default ParticipantCard;

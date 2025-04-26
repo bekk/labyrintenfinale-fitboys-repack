@@ -1,34 +1,36 @@
-"use client";
-
 import { useState } from "react";
-import { Menu, X, User, Settings, Globe } from "lucide-react";
+import {
+  Menu,
+  X,
+  User,
+  Settings,
+  BarChart3,
+  Brain,
+  Database,
+  Sparkles,
+} from "lucide-react";
 import { cn } from "~/lib/utils";
 
 const navlinks = [
   {
     name: "Hjem",
     path: "/",
-    shape: "polygon(10% 0%, 90% 0%, 100% 30%, 90% 100%, 10% 100%, 0% 70%)",
-    mobileShape:
-      "polygon(10% 0%, 90% 0%, 100% 30%, 90% 100%, 10% 100%, 0% 70%)",
+    icon: <Sparkles className="mr-1 h-4 w-4" />,
   },
   {
     name: "Om oss",
     path: "/om-oss",
-    shape: "polygon(0% 20%, 100% 0%, 90% 100%, 10% 90%)",
-    mobileShape: "polygon(0% 20%, 100% 0%, 90% 100%, 10% 90%)",
+    icon: <Brain className="mr-1 h-4 w-4" />,
   },
   {
     name: "Priser",
     path: "/priser",
-    shape: "polygon(0% 0%, 100% 20%, 90% 100%, 10% 80%)",
-    mobileShape: "polygon(10% 0%, 90% 10%, 100% 90%, 0% 100%",
+    icon: <Database className="mr-1 h-4 w-4" />,
   },
   {
     name: "Kontakt",
     path: "/kontakt",
-    shape: "polygon(20% 0%, 100% 10%, 80% 100%, 0% 90%)",
-    mobileShape: "polygon(20% 0%, 100% 10%, 80% 100%, 0% 90%)",
+    icon: <BarChart3 className="mr-1 h-4 w-4" />,
   },
 ];
 
@@ -40,16 +42,10 @@ const Navbar = () => {
       <div className="relative w-full overflow-hidden ">
         <nav className="relative w-full p-4">
           <div className="mx-auto flex container bg-gray-200 rounded-full px-4 items-center justify-between">
-            <div
-              className="relative flex items-center"
-              style={{
-                clipPath:
-                  "polygon(0% 0%, 100% 0%, 95% 30%, 100% 70%, 90% 100%, 30% 90%, 0% 100%, 5% 40%)",
-              }}
-            >
+            <div className="relative flex items-center">
               <a
                 href="/"
-                className="bg-gradient-to-br from-gray-50 to-gray-100 px-6 py-3 text-2xl font-bold text-emerald-600 shadow-[5px_5px_10px_#d1d1d1,_-5px_-5px_10px_#ffffff] transition-all duration-300 hover:shadow-[inset_5px_5px_10px_#d1d1d1,_inset_-5px_-5px_10px_#ffffff]"
+                className=" px-6 py-3 text-2xl font-bold text-emerald-600 transition-all duration-300"
               >
                 Reniew
                 <span className="ml-2 text-sm font-normal text-gray-500">
@@ -60,16 +56,15 @@ const Navbar = () => {
 
             <div className="hidden md:flex md:space-x-2">
               {navlinks.map((item) => (
-                <div
-                  key={item.name}
-                  className="relative"
-                  style={{ clipPath: item.shape }}
-                >
+                <div key={item.name} className="relative group">
+                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-sky-500/10 rounded-lg blur-sm group-hover:opacity-100 opacity-0 transition-opacity"></div>
                   <a
                     href={`${item.path}`}
-                    className="block bg-gray-50 px-4 py-2 font-medium text-gray-700 shadow-[3px_3px_6px_#d1d1d1,_-3px_-3px_6px_#ffffff] transition-all duration-300 hover:shadow-[inset_3px_3px_6px_#d1d1d1,_inset_-3px_-3px_6px_#ffffff] hover:text-emerald-600"
+                    className="relative  rounded-lg px-4 py-2 font-medium text-gray-700 border border-indigo-500/30 transition-all duration-300 hover:border-sky-500/80 hover:text-indigo-800 group-hover:shadow-[0_0_15px_rgba(99,102,241,0.4)] flex items-center bg-white/50 backdrop-blur-sm"
                   >
+                    {item.icon}
                     {item.name}
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-sky-500 transition-all duration-300 group-hover:w-full"></span>
                   </a>
                 </div>
               ))}

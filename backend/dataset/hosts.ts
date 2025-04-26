@@ -11,7 +11,7 @@ export type Host = {
 export const hosts: Host[] = [
   {
     name: "Mads Hansen",
-    image: "/public/images/mads-hansen.jpg",
+    image: "/images/mads-hansen.jpg",
     description:
       "Mads Hansen er tidligere fotballspiller og nå TV-personlighet, kjent for sin humor og spissformuleringer.",
     demographics: [
@@ -25,7 +25,7 @@ export const hosts: Host[] = [
   },
   {
     name: "Sophie Elise",
-    image: "/public/images/sophie-elise.jpg",
+    image: "/images/sophie-elise.jpg",
     description:
       "Sophie Elise er influenser, forfatter og programleder, kjent for sitt engasjement i sosiale temaer.",
     demographics: [
@@ -39,7 +39,7 @@ export const hosts: Host[] = [
   },
   {
     name: "Jon Almaas",
-    image: "/public/images/jon-almaas.jpg",
+    image: "/images/jon-almaas.jpg",
     description:
       "Jon Almaas er en av Norges mest erfarne programledere, kjent for sin tørre humor og treffsikre replikk.",
     demographics: [
@@ -53,7 +53,7 @@ export const hosts: Host[] = [
   },
   {
     name: "Herman Flesvig",
-    image: "/public/images/herman-flesvig.jpg",
+    image: "/images/herman-flesvig.jpg",
     description:
       "Herman Flesvig er skuespiller og komiker, kjent for sine humoristiske roller i norsk TV og podkast.",
     demographics: [
@@ -67,7 +67,7 @@ export const hosts: Host[] = [
   },
   {
     name: "Solveig Kloppen",
-    image: "/public/images/solveig-kloppen.jpg",
+    image: "/images/solveig-kloppen.jpg",
     description:
       "Solveig Kloppen er en erfaren norsk programleder kjent for sin varme, humor og dyktighet i intervjuer.",
     demographics: [
@@ -81,7 +81,7 @@ export const hosts: Host[] = [
   },
   {
     name: "Tix",
-    image: "/public/images/tix.jpg",
+    image: "/images/tix.jpg",
     description:
       "Tix er artist og låtskriver, kjent for å være fargerik, inkluderende og en folkefavoritt blant yngre seere.",
     demographics: [
@@ -95,7 +95,7 @@ export const hosts: Host[] = [
   },
   {
     name: "Maria Stavang",
-    image: "/public/images/maria-stavang.jpg",
+    image: "/images/maria-stavang.jpg",
     description:
       "Maria Stavang, også kjent som Piateed, er en komiker og skuespiller som kombinerer humor og sjarme på scenen.",
     demographics: [
@@ -109,7 +109,7 @@ export const hosts: Host[] = [
   },
   {
     name: "Erlend Elias",
-    image: "/public/images/erlend-elias.jpg",
+    image: "/images/erlend-elias.jpg",
     description:
       "Erlend Elias er stylist, influenser og TV-profil med en karismatisk og fargerik stil.",
     demographics: [
@@ -123,7 +123,7 @@ export const hosts: Host[] = [
   },
   {
     name: "Kristopher Schau",
-    image: "/public/images/kristopher-schau.jpg",
+    image: "/images/kristopher-schau.jpg",
     description:
       "Kristopher Schau er musiker, forfatter og programleder, kjent for sin mørke humor og kreative prosjekter.",
     demographics: [
@@ -137,7 +137,7 @@ export const hosts: Host[] = [
   },
   {
     name: "Astrid S",
-    image: "/public/images/astrid-s.jpg",
+    image: "/images/astrid-s.jpg",
     description:
       "Astrid S er en internasjonalt kjent popartist med sterk appell til unge målgrupper.",
     demographics: [
