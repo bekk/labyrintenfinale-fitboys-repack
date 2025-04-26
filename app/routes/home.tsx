@@ -16,7 +16,6 @@ import toast from "react-hot-toast";
 import ParticipantGrid from "~/components/Participant/ParticipantGrid";
 import DemographicGrid from "~/components/Demographic/DemographicGrid";
 import type { Demography } from "backend/dataset/demography";
-import ResultLoading from "~/components/Result/ResultLoading";
 import Result from "~/components/Result/Result";
 
 export function meta({}: Route.MetaArgs) {
@@ -212,6 +211,7 @@ export default function Home() {
               selectedHost={selectedHost}
               selectedDemography={selectedDemography}
               selectedElement={selectedElement}
+              selectedParticipant={selectedParticipant}
             />
           )}
         </motion.div>
