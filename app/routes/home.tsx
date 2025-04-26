@@ -11,6 +11,9 @@ import DemographyGrid from "~/components/Demography/DemographyGrid";
 import LocationGrid from "~/components/Location/LocationGrid";
 import HostGrid from "~/components/Host/HostGrid";
 import ElementGrid from "~/components/Element/ElementGrid";
+import type { Host } from "backend/dataset/hosts";
+import type { Location } from "backend/dataset/locations";
+import type { Element } from "backend/dataset/elements";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Reniew" }];
@@ -19,8 +22,11 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
-  const [selectedHost, setSelectedHost] = useState<string | null>(null);
-  const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
+  const [selectedHost, setSelectedHost] = useState<Host | null>(null);
+  const [selectedLocation, setSelectedLocation] = useState<Location | null>(
+    null
+  );
+  const [selectedElement, setSelectedElement] = useState<Element | null>(null);
 
   const totalSteps = 5;
   const progress = (currentStep / totalSteps) * 100;
@@ -109,7 +115,12 @@ export default function Home() {
         >
           {currentStep === 1 && <DemographyGrid />}
 
-          {currentStep === 2 && <ElementGrid />}
+          {currentStep === 2 && (
+            <ElementGrid
+              selectedElement={selectedElement}
+              setSelectedElement={setSelectedElement}
+            />
+          )}
 
           {currentStep === 3 && (
             <LocationGrid
@@ -151,14 +162,14 @@ export default function Home() {
                     {selectedLocation && (
                       <div className="bg-gray-50 p-4 rounded-lg">
                         <h3 className="font-medium text-gray-900 mb-2">Sted</h3>
-                        <p className="text-gray-700">{selectedLocation}</p>
+                        <p className="text-gray-700">{selectedLocation.name}</p>
                       </div>
                     )}
 
                     {selectedHost && (
                       <div className="bg-gray-50 p-4 rounded-lg">
                         <h3 className="font-medium text-gray-900 mb-2">Vert</h3>
-                        <p className="text-gray-700">{selectedHost}</p>
+                        <p className="text-gray-700">{selectedHost.name}</p>
                       </div>
                     )}
 

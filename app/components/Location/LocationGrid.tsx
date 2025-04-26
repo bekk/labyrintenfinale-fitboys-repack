@@ -1,51 +1,11 @@
 import { Check } from "lucide-react";
 import LocationCard from "./LocationCard";
-
-const locations = [
-  {
-    name: "Hardangerfjorden",
-    image: "/hardangerfjorden.jpeg",
-    description:
-      "Hardangerfjorden er en av de vakreste fjordene i Norge, kjent for sine bratte fjellsider og fruktbare daler.",
-    demographics: [
-      {
-        ageGroup: "18-24",
-        score: 10,
-        gender: "male" as "male",
-      },
-    ],
-  },
-  {
-    name: "Bergen",
-    image: "/colorful-bergen-wharf.png",
-    description:
-      "Norges nest største by, kjent for Bryggen, fisketorget og de syv fjellene.",
-    demographics: [
-      {
-        ageGroup: "25-34",
-        score: 8,
-        gender: "female" as "female",
-      },
-    ],
-  },
-  {
-    name: "Geirangerfjorden",
-    image: "/geirangerfjord-vista.png",
-    description:
-      "En av verdens mest spektakulære fjorder med bratte fjellsider og vakre fossefall.",
-    demographics: [
-      {
-        ageGroup: "35-44",
-        score: 9,
-        gender: "other" as "other",
-      },
-    ],
-  },
-];
+import { locations } from "backend/dataset/locations";
+import type { Location } from "backend/dataset/locations";
 
 interface Props {
-  selectedLocation: string | null;
-  setSelectedLocation: (location: string) => void;
+  selectedLocation: Location | null;
+  setSelectedLocation: (location: Location) => void;
 }
 
 const LocationGrid = ({ selectedLocation, setSelectedLocation }: Props) => {
@@ -64,14 +24,14 @@ const LocationGrid = ({ selectedLocation, setSelectedLocation }: Props) => {
             <div
               key={location.name}
               className={`relative cursor-pointer transition-all duration-300 ${
-                selectedLocation === location.name
+                selectedLocation?.name === location.name
                   ? "ring-2 ring-blue-500 scale-[1.02]"
                   : "hover:shadow-lg"
               }`}
-              onClick={() => setSelectedLocation(location.name)}
+              onClick={() => setSelectedLocation(location)}
             >
               <LocationCard location={location} />
-              {selectedLocation === location.name && (
+              {selectedLocation?.name === location.name && (
                 <div className="absolute top-2 right-2 bg-blue-500 text-white p-1 rounded-full">
                   <Check className="w-4 h-4" />
                 </div>

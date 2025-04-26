@@ -33,7 +33,7 @@ const HostCard = ({ host }: Props) => {
           )}
           <div>
             <h1 className="text-xl font-bold text-gray-800">{host.name}</h1>
-            <h3 className="text-sm text-gray-600">{host.position}</h3>
+            {/* <h3 className="text-sm text-gray-600">{host.position}</h3> */}
           </div>
         </div>
 
@@ -60,7 +60,7 @@ const HostCard = ({ host }: Props) => {
               <DialogTitle className="text-2xl font-bold">
                 {host.name}
               </DialogTitle>
-              <p className="text-gray-600 mt-1">{host.position}</p>
+              {/* <p className="text-gray-600 mt-1">{host.position}</p> */}
             </DialogHeader>
             <div className="mt-4">
               <p className="text-gray-700 leading-relaxed">

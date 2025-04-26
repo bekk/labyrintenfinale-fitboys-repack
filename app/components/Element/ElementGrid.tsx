@@ -1,33 +1,14 @@
-import ConceptCard from "./ElementCard";
+import elementCard from "./ElementCard";
+import type { Element } from "../../../backend/dataset/elements";
+import { elements } from "../../../backend/dataset/elements";
+import ElementCard from "./ElementCard";
 
-const concepts = [
-  {
-    name: "Laugh Track",
-    popularity: 85,
-  },
-  {
-    name: "Live Publikum",
-    popularity: 70,
-  },
-  {
-    name: "Hemmelig lag",
-    popularity: 90,
-  },
-  {
-    name: "Mat laging",
-    popularity: 75,
-  },
-  {
-    name: "Festival",
-    popularity: 80,
-  },
-  {
-    name: "Workshop",
-    popularity: 65,
-  },
-];
+interface Props {
+  selectedElement: Element | null;
+  setSelectedElement: (element: Element | null) => void;
+}
 
-const ElementGrid = () => {
+const ElementGrid = ({ selectedElement, setSelectedElement }: Props) => {
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
@@ -41,12 +22,22 @@ const ElementGrid = () => {
         <p className="text-gray-600 mb-6">Velg element for ditt TV program.</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {concepts.map((concept) => (
-            <ConceptCard
-              key={concept.name}
-              name={concept.name}
-              popularity={concept.popularity}
-            />
+          {elements.map((element) => (
+            <div
+              key={element.name}
+              className={`relative cursor-pointer transition-all rounded-xl duration-300 ${
+                selectedElement?.name === element.name
+                  ? "ring-2 ring-blue-500 scale-[1.02]"
+                  : "hover:shadow-lg"
+              }`}
+              onClick={() => setSelectedElement(element)}
+            >
+              <ElementCard
+                key={element.name}
+                name={element.name}
+                demographics={element.demographics}
+              />
+            </div>
           ))}
         </div>
       </div>

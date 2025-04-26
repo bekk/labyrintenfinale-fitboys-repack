@@ -1,37 +1,5 @@
 import DemographyCard from "./DemographyCard";
-
-const malGrupper = [
-  {
-    name: "Unge voksne",
-    interest: 75,
-    profitability: 50,
-  },
-  {
-    name: "Familier",
-    interest: 60,
-    profitability: 70,
-  },
-  {
-    name: "Seniorer",
-    interest: 40,
-    profitability: 80,
-  },
-  {
-    name: "Tenåringer",
-    interest: 90,
-    profitability: 60,
-  },
-  {
-    name: "Barn",
-    interest: 80,
-    profitability: 90,
-  },
-  {
-    name: "Studenter",
-    interest: 70,
-    profitability: 50,
-  },
-];
+import { participants } from "backend/dataset/participants";
 
 const DemographyGrid = () => {
   return (
@@ -49,8 +17,8 @@ const DemographyGrid = () => {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {malGrupper.map((group) => (
-            <DemographyCard key={group.name} {...group} />
+          {participants.map((participant) => (
+            <DemographyCard key={participant.name} participant={participant} />
           ))}
         </div>
       </div>
