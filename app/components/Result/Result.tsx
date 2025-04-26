@@ -1,3 +1,5 @@
+"use client";
+
 import { Check } from "lucide-react";
 import ResultLoading from "./ResultLoading";
 import type { Location } from "backend/dataset/locations";
@@ -5,6 +7,7 @@ import type { Host } from "backend/dataset/hosts";
 import type { Demography } from "backend/dataset/demography";
 import type { Element } from "backend/dataset/elements";
 import type { Participant } from "backend/dataset/participants";
+import { useState } from "react";
 
 interface Props {
   isLoading: boolean;
@@ -25,6 +28,8 @@ const Result = ({
   selectedElement,
   selectedParticipant,
 }: Props) => {
+  const [satisfaction, setSatisfaction] = useState<number | null>(null);
+
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
@@ -95,6 +100,33 @@ const Result = ({
                   }}
                 />
               ) : null}
+            </div>
+
+            <div className="mt-12 pt-8 border-t border-gray-100">
+              <h3 className="text-lg font-medium text-gray-900 mb-4">
+                Hvor fornøyd var du med resultatet?
+              </h3>
+              <div className="flex justify-center gap-2">
+                {[1, 2, 3, 4, 5].map((rating) => (
+                  <button
+                    key={rating}
+                    onClick={() => setSatisfaction(rating)}
+                    className={`w-12 h-12 rounded-full flex items-center justify-center text-lg font-medium transition-colors ${
+                      satisfaction === rating
+                        ? "bg-green-500 text-white"
+                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    }`}
+                    aria-label={`Rate ${rating} out of 5`}
+                  >
+                    {rating}
+                  </button>
+                ))}
+              </div>
+              {satisfaction !== null && (
+                <p className="mt-4 text-green-600 font-medium">
+                  Takk for din tilbakemelding!
+                </p>
+              )}
             </div>
           </div>
         )}

@@ -43,6 +43,11 @@ export default function Home() {
   const progress = (currentStep / totalSteps) * 100;
 
   const goToNextStep = () => {
+    console.log(currentStep + 1, steps.length - 1);
+    if (currentStep + 1 === steps.length - 1) {
+      handleSubmit();
+    }
+
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -68,12 +73,7 @@ export default function Home() {
     { number: 5, title: "Resultat" },
   ];
 
-  const handleFinish = async () => {
-    if (!selectedDemography || !selectedElement || !selectedLocation) {
-      toast.error("Vennligst velg alle alternativer.");
-      return;
-    }
-
+  const handleSubmit = async () => {
     const toProcess = {
       demography: selectedDemography,
       element: selectedElement,
@@ -106,6 +106,18 @@ export default function Home() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleFinish = () => {
+    navigate("/");
+    setCurrentStep(0);
+    setSelectedHost(null);
+    setSelectedLocation(null);
+    setSelectedElement(null);
+    setSelectedParticipant(null);
+    setSelectedDemography(null);
+    setResponse(null);
+    setIsLoading(false);
   };
 
   return (
@@ -241,7 +253,7 @@ export default function Home() {
               onClick={handleFinish}
               className="flex items-center gap-2 cursor-pointer bg-green-700 hover:bg-green-800 text-white"
             >
-              Fullfør <Check className="w-4 h-4" />
+              Avslutt <Check className="w-4 h-4" />
             </Button>
           )}
         </div>
