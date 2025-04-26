@@ -21,22 +21,11 @@ const LocationGrid = ({ selectedLocation, setSelectedLocation }: Props) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {locations.map((location) => (
-            <div
-              key={location.name}
-              className={`relative cursor-pointer transition-all duration-300 ${
-                selectedLocation?.name === location.name
-                  ? "ring-2 ring-blue-500 scale-[1.02]"
-                  : "hover:shadow-lg"
-              }`}
-              onClick={() => setSelectedLocation(location)}
-            >
-              <LocationCard location={location} />
-              {selectedLocation?.name === location.name && (
-                <div className="absolute top-2 right-2 bg-blue-500 text-white p-1 rounded-full">
-                  <Check className="w-4 h-4" />
-                </div>
-              )}
-            </div>
+            <LocationCard
+              location={location}
+              selectedLocation={selectedLocation}
+              setSelectedLocation={setSelectedLocation}
+            />
           ))}
         </div>
       </div>

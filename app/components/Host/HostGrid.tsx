@@ -21,6 +21,7 @@ const HostGrid = ({ selectedHost, setSelectedHost }: Props) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {hosts.map((host) => (
             <HostCard
+              key={host.name}
               host={host}
               selectedHost={selectedHost}
               setSelectedHost={setSelectedHost}
