@@ -20,22 +20,11 @@ const HostGrid = ({ selectedHost, setSelectedHost }: Props) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {hosts.map((host) => (
-            <div
-              key={host.name}
-              className={`relative cursor-pointer transition-all duration-300 ${
-                selectedHost?.name === host.name
-                  ? "ring-2 ring-blue-500 scale-[1.02]"
-                  : "hover:shadow-lg"
-              }`}
-              onClick={() => setSelectedHost(host)}
-            >
-              <HostCard host={host} />
-              {selectedHost?.name === host.name && (
-                <div className="absolute top-2 right-2 bg-blue-500 text-white p-1 rounded-full">
-                  <Check className="w-4 h-4" />
-                </div>
-              )}
-            </div>
+            <HostCard
+              host={host}
+              selectedHost={selectedHost}
+              setSelectedHost={setSelectedHost}
+            />
           ))}
         </div>
       </div>
