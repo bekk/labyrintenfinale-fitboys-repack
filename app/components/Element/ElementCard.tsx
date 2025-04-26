@@ -336,7 +336,7 @@ const ElementCard = ({
                       <Line
                         type="monotone"
                         dataKey="score"
-                        stroke="var(--color-score)"
+                        stroke="blue"
                         strokeWidth={2}
                         activeDot={{ r: 8 }}
                       />

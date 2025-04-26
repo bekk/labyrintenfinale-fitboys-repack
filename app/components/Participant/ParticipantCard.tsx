@@ -469,14 +469,14 @@ const ParticipantCard = ({
                       <Line
                         type="monotone"
                         dataKey="interest"
-                        stroke="var(--color-interest)"
+                        stroke="blue"
                         strokeWidth={2}
                         activeDot={{ r: 8 }}
                       />
                       <Line
                         type="monotone"
                         dataKey="profit"
-                        stroke="var(--color-profit)"
+                        stroke="green"
                         strokeWidth={2}
                         activeDot={{ r: 8 }}
                       />
