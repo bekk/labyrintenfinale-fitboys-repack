@@ -16,6 +16,8 @@ import toast from "react-hot-toast";
 import ParticipantGrid from "~/components/Participant/ParticipantGrid";
 import DemographicGrid from "~/components/Demographic/DemographicGrid";
 import type { Demography } from "backend/dataset/demography";
+import ResultLoading from "~/components/Result/ResultLoading";
+import Result from "~/components/Result/Result";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Reniew" }];
@@ -36,6 +38,7 @@ export default function Home() {
     useState<Demography | null>(null);
 
   const [response, setResponse] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const totalSteps = 5;
   const progress = (currentStep / totalSteps) * 100;
@@ -81,6 +84,7 @@ export default function Home() {
     };
 
     try {
+      setIsLoading(true);
       const response = await fetch("/api/ai", {
         method: "POST",
         headers: {
@@ -94,13 +98,14 @@ export default function Home() {
       }
 
       const data = await response.json();
-      console.log(data);
 
       setResponse(data.response);
       toast.success("TV programmet er klart!");
     } catch (error) {
       console.error("Error fetching AI response:", error);
       toast.error("Noe gikk galt. Vennligst prøv igjen.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -200,69 +205,14 @@ export default function Home() {
           )}
 
           {currentStep === 5 && (
-            <div className="space-y-8">
-              <div className="flex items-center justify-between">
-                <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-                  Resultat
-                </h1>
-                <div className="text-sm text-gray-500">Steg 5</div>
-              </div>
-
-              <div className="bg-white rounded-xl shadow-sm border p-6">
-                <div className="text-center py-8">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
-                    <Check className="w-8 h-8 text-green-600" />
-                  </div>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                    Ditt TV program er klart!
-                  </h2>
-                  <p className="text-gray-600 max-w-md mx-auto mb-8">
-                    Vi har satt sammen det perfekte TV program basert på dine
-                    valg.
-                  </p>
-
-                  <p>{response}</p>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-3xl mx-auto">
-                    {selectedLocation && (
-                      <div className="bg-gray-50 p-4 rounded-lg">
-                        <h3 className="font-medium text-gray-900 mb-2">Sted</h3>
-                        <p className="text-gray-700">{selectedLocation.name}</p>
-                      </div>
-                    )}
-
-                    {selectedHost && (
-                      <div className="bg-gray-50 p-4 rounded-lg">
-                        <h3 className="font-medium text-gray-900 mb-2">Vert</h3>
-                        <p className="text-gray-700">{selectedHost.name}</p>
-                      </div>
-                    )}
-
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                      <h3 className="font-medium text-gray-900 mb-2">
-                        Deltaker
-                      </h3>
-                      <p className="text-gray-700">Unge voksne</p>
-                    </div>
-                  </div>
-
-                  <Button
-                    className="mt-8 cursor-pointer"
-                    size="lg"
-                    onClick={() => {
-                      console.log(
-                        selectedDemography,
-                        selectedElement,
-                        selectedLocation,
-                        selectedHost
-                      );
-                    }}
-                  >
-                    Se detaljer
-                  </Button>
-                </div>
-              </div>
-            </div>
+            <Result
+              isLoading={isLoading}
+              response={response}
+              selectedLocation={selectedLocation}
+              selectedHost={selectedHost}
+              selectedDemography={selectedDemography}
+              selectedElement={selectedElement}
+            />
           )}
         </motion.div>
 
