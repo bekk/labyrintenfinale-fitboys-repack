@@ -246,15 +246,15 @@ export default function OmOssPage() {
               <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-8 py-4">
                 <div className="flex items-center">
                   <div className="w-3 h-3 rounded-full bg-blue-500 mr-2"></div>
-                  <span className="text-sm text-gray-600">Vekst</span>
+                  <span className="text-sm text-gray-600 p-10">Vekst</span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-3 h-3 rounded-full bg-purple-500 mr-2"></div>
-                  <span className="text-sm text-gray-600">Innovasjon</span>
+                  <span className="text-sm text-gray-600">Originalitet</span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
-                  <span className="text-sm text-gray-600">Påvirkning</span>
+                  <span className="text-sm text-gray-600">Effekt</span>
                 </div>
               </div>
             </motion.div>
