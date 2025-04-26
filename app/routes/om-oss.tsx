@@ -12,7 +12,6 @@ import {
   AreaChart,
 } from "recharts";
 
-// Sample data for the line chart - replace with your actual company data
 const companyData = [
   { year: 2018, growth: 20, innovation: 30, impact: 10 },
   { year: 2019, growth: 40, innovation: 25, impact: 30 },
@@ -30,7 +29,6 @@ export default function OmOssPage() {
     offset: ["start start", "end end"],
   });
 
-  // Parallax effects
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const y2 = useTransform(scrollYProgress, [0, 1], [0, -50]);
   const opacity1 = useTransform(scrollYProgress, [0, 0.2, 0.3], [1, 1, 0]);
@@ -38,7 +36,6 @@ export default function OmOssPage() {
   const opacity3 = useTransform(scrollYProgress, [0.4, 0.5, 0.7], [0, 1, 1]);
   const opacity4 = useTransform(scrollYProgress, [0.6, 0.7, 0.9], [0, 1, 1]);
 
-  // Set up intersection observer to detect when chart section is in view
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -124,7 +121,6 @@ export default function OmOssPage() {
         </motion.div>
       </section>
 
-      {/* Chart visualization section */}
       <section
         id="chart-section"
         className="relative min-h-screen flex items-center py-24 bg-gray-50"
@@ -268,7 +264,6 @@ export default function OmOssPage() {
         </div>
       </section>
 
-      {/* Additional text content */}
       <section className="relative min-h-screen flex items-center py-24 bg-gradient-to-b from-white to-gray-50">
         <div className="container mx-auto px-6">
           <motion.div
@@ -355,7 +350,6 @@ export default function OmOssPage() {
         </div>
       </section>
 
-      {/* Footer section */}
       <section className="py-16 bg-white border-t border-gray-200">
         <div className="container mx-auto px-6 text-center">
           <motion.div
