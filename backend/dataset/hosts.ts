@@ -1,13 +1,14 @@
 import type { Demography } from "./demography";
 
-type Host = {
+export type Host = {
   name: string;
   image: string;
+  position: string;
   description: string;
   demographics: Demography[];
 };
 
-const hosts: Host[] = [
+export const hosts: Host[] = [
   {
     name: "Mads Hansen",
     image: "/images/mads-hansen.jpg",

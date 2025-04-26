@@ -37,12 +37,9 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="relative w-full overflow-hidden bg-gray-50">
-        <div className="absolute -left-16 -top-20 h-64 w-64 rounded-full bg-emerald-100/30 blur-3xl"></div>
-        <div className="absolute -right-16 -top-10 h-40 w-40 rounded-full bg-purple-100/20 blur-2xl"></div>
-
+      <div className="relative w-full overflow-hidden ">
         <nav className="relative w-full p-4">
-          <div className="mx-auto flex container items-center justify-between">
+          <div className="mx-auto flex container bg-gray-200 rounded-full px-4 items-center justify-between">
             <div
               className="relative flex items-center"
               style={{

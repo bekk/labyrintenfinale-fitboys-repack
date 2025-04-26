@@ -1,6 +1,6 @@
 import type { Demography } from "./demography";
 
-type Location = {
+export type Location = {
   name: string;
   image: string;
   description: string;
