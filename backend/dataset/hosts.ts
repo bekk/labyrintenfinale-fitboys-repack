@@ -1,16 +1,18 @@
 import type { Demography } from "./demography";
 
-type Host = {
+export type Host = {
   name: string;
   image: string;
+  position: string;
   description: string;
   demographics: Demography[];
 };
 
-const hosts: Host[] = [
+export const hosts: Host[] = [
   {
     name: "Jon Almaas",
-    image: "/images/jon-almaas.jpg",
+    image: "/jon_almaas.jpg",
+    position: "TV-programleder",
     description:
       "Jon Almaas er en norsk TV-programleder og journalist. Han er kjent for sin humor og sitt engasjement i ulike TV-programmer.",
     demographics: [
@@ -24,6 +26,7 @@ const hosts: Host[] = [
   {
     name: "Anne Lindmo",
     image: "/images/anne-lindmo.jpg",
+    position: "TV-programleder",
     description:
       "Anne Lindmo er en norsk radioprogramleder og forfatter, mest kjent fra TV-programmet ‘Lindmo’ på NRK.",
     demographics: [
@@ -37,6 +40,7 @@ const hosts: Host[] = [
   {
     name: "Fredrik Skavlan",
     image: "/images/fredrik-skavlan.jpg",
+    position: "TV-programleder",
     description:
       "Fredrik Skavlan er en norsk-svensk programleder, kjent for talkshowet ‘Skavlan’ som sendes i flere land.",
     demographics: [
@@ -50,6 +54,7 @@ const hosts: Host[] = [
   {
     name: "Synnøve Skarbø",
     image: "/images/synnove-skarbo.jpg",
+    position: "TV-programleder",
     description:
       "Synnøve Skarbø er en norsk komiker og programleder, kjent fra både radio og TV.",
     demographics: [
@@ -63,6 +68,7 @@ const hosts: Host[] = [
   {
     name: "Petter Nome",
     image: "/images/petter-nome.jpg",
+    position: "TV-programleder",
     description:
       "Petter Nome er en norsk programleder og gründer, tidligere kjent fra underholdningsprogrammer på TV 2.",
     demographics: [
@@ -76,6 +82,7 @@ const hosts: Host[] = [
   {
     name: "Line Elvsåshagen",
     image: "/images/line-elvsashagen.jpg",
+    position: "TV-programleder",
     description:
       "Line Elvsåshagen er en norsk medieviter og programleder, kjent fra dokumentar- og kulturprogrammer.",
     demographics: [
@@ -89,6 +96,7 @@ const hosts: Host[] = [
   {
     name: "Ivar Dyrhaug",
     image: "/images/ivar-dyrhaug.jpg",
+    position: "TV-programleder",
     description:
       "Ivar Dyrhaug er en norsk journalist og programleder, spesielt innen dokumentar- og nyhetsjournalistikk.",
     demographics: [
@@ -102,6 +110,7 @@ const hosts: Host[] = [
   {
     name: "Harald Eia",
     image: "/images/harald-eia.jpg",
+    position: "TV-programleder",
     description:
       "Harald Eia er en norsk komiker, sosiolog og programleder, kjent fra satiriske og dokumentariske TV-serier.",
     demographics: [
@@ -115,6 +124,7 @@ const hosts: Host[] = [
   {
     name: "Thomas Seltzer",
     image: "/images/thomas-seltzer.jpg",
+    position: "TV-programleder",
     description:
       "Thomas Seltzer er en norsk programleder og musiker, best kjent fra dokumentarserien ‘Trygdekontoret’.",
     demographics: [
@@ -128,6 +138,7 @@ const hosts: Host[] = [
   {
     name: "Hege Øversveen",
     image: "/images/hege-oversveen.jpg",
+    position: "TV-programleder",
     description:
       "Hege Øversveen er en norsk radioprogramleder, særlig kjent fra NRK P1.",
     demographics: [
@@ -141,6 +152,7 @@ const hosts: Host[] = [
   {
     name: "Live Nelvik",
     image: "/images/live-nelvik.jpg",
+    position: "TV-programleder",
     description:
       "Live Nelvik er en norsk programleder og skuespiller, kjent fra ulike underholdningsprogrammer på TV og radio.",
     demographics: [
@@ -154,6 +166,7 @@ const hosts: Host[] = [
   {
     name: "Kåre Magnus Bergh",
     image: "/images/kare-magnus-bergh.jpg",
+    position: "TV-programleder",
     description:
       "Kåre Magnus Bergh er en norsk musikkjournalist og programleder, ofte forbundet med musikkonkurranser på TV.",
     demographics: [
