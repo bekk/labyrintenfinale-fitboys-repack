@@ -30,6 +30,7 @@ import {
 } from "recharts";
 import { PlusCircle } from "lucide-react";
 import type { Element } from "../../../backend/dataset/elements";
+import toast from "react-hot-toast";
 
 interface Props {
   element: Element;
@@ -112,285 +113,11 @@ const ElementCard = ({
             </div>
           </div>
         </div>
-
-        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-          <DialogContent className="sm:max-w-[800px] h-[80vh] overflow-y-auto p-4">
-            <DialogHeader>
-              <DialogTitle className="text-2xl">
-                {element.name} - Detaljert Analyse
-              </DialogTitle>
-              <DialogDescription>
-                Utforsk detaljert demografisk data og trender for {element.name}
-                .
-              </DialogDescription>
-            </DialogHeader>
-
-            <Tabs defaultValue="overview" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="overview">Oversikt</TabsTrigger>
-                <TabsTrigger value="demographics">Demografi</TabsTrigger>
-                <TabsTrigger value="trends">Trender</TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="overview" className="space-y-4 pt-4">
-                <div className="grid grid-cols-2 gap-4 w-full">
-                  <Card>
-                    <CardHeader className="pb-2">
-                      <CardTitle className="text-lg">Popularitet</CardTitle>
-                      <CardDescription>
-                        Nåværende popularitetsnivå
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-3xl font-bold">{0}%</div>
-                      <Progress value={0} className="h-2 mt-2" />
-                    </CardContent>
-                  </Card>
-
-                  <Card>
-                    <CardHeader className="pb-2">
-                      <CardTitle className="text-lg">
-                        Demografisk Score
-                      </CardTitle>
-                      <CardDescription>
-                        Gjennomsnittlig score på tvers av aldersgrupper
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-3xl font-bold">
-                        {averageDemographicScore.toFixed(1)}%
-                      </div>
-                      <Progress
-                        value={averageDemographicScore}
-                        className="h-2 mt-2"
-                      />
-                    </CardContent>
-                  </Card>
-                </div>
-
-                <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-lg">
-                      Demografisk Distribusjon
-                    </CardTitle>
-                    <CardDescription>
-                      Fordeling av score på tvers av aldersgrupper
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex justify-center">
-                      <ChartContainer
-                        config={{
-                          value: {
-                            label: "Verdi",
-                            color: "hsl(var(--chart-2))",
-                          },
-                        }}
-                        className="h-[300px] w-[300px]"
-                      >
-                        <PieChart width={300} height={300}>
-                          <Pie
-                            data={pieData}
-                            cx={150}
-                            cy={150}
-                            innerRadius={80}
-                            outerRadius={120}
-                            paddingAngle={5}
-                            dataKey="value"
-                            label={({ name, value }) => `${name}: ${value}%`}
-                          >
-                            {pieData.map((_, index) => (
-                              <Cell
-                                key={`cell-${index}`}
-                                fill={COLORS[index % COLORS.length]}
-                              />
-                            ))}
-                          </Pie>
-                          <Legend />
-                          <ChartTooltip content={<ChartTooltipContent />} />
-                        </PieChart>
-                      </ChartContainer>
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
-              <TabsContent value="demographics" className="space-y-4 pt-4">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Detaljert Demografisk Analyse</CardTitle>
-                    <CardDescription>
-                      Score fordelt på aldersgrupper
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ChartContainer
-                      config={{
-                        score: {
-                          label: "Score",
-                          color: "hsl(var(--chart-1))",
-                        },
-                      }}
-                      className="h-[300px]"
-                    >
-                      <BarChart
-                        accessibilityLayer
-                        data={element.demographics.map((item) => ({
-                          ageGroup: item.ageGroup,
-                          score: item.score,
-                        }))}
-                        margin={{ top: 20, right: 30, left: 20, bottom: 30 }}
-                      >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis
-                          dataKey="ageGroup"
-                          tickLine={false}
-                          axisLine={true}
-                          tick={{ fontSize: 12 }}
-                          tickMargin={10}
-                        />
-                        <YAxis
-                          domain={[0, 100]}
-                          tickFormatter={(value) => `${value}%`}
-                        />
-                        <Bar
-                          dataKey="score"
-                          fill="var(--color-score)"
-                          radius={[4, 4, 0, 0]}
-                        />
-                        <ChartTooltip
-                          cursor={false}
-                          content={<ChartTooltipContent />}
-                        />
-                      </BarChart>
-                    </ChartContainer>
-                  </CardContent>
-                </Card>
-
-                <div className="grid grid-cols-2 gap-4">
-                  {element.demographics.map((demo) => (
-                    <Card key={demo.ageGroup}>
-                      <CardHeader className="pb-2">
-                        <CardTitle className="text-lg">
-                          Aldersgruppe: {demo.ageGroup}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="text-3xl font-bold">{demo.score}%</div>
-                        <Progress value={demo.score} className="h-2 mt-2" />
-                        <p className="text-sm text-gray-500 mt-2">
-                          {demo.score > 70
-                            ? "Høy popularitet i denne aldersgruppen"
-                            : demo.score > 40
-                            ? "Moderat popularitet i denne aldersgruppen"
-                            : "Lav popularitet i denne aldersgruppen"}
-                        </p>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </TabsContent>
-
-              <TabsContent value="trends" className="space-y-4 pt-4">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Popularitets Trender</CardTitle>
-                    <CardDescription>
-                      Utvikling over de siste 6 månedene
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ChartContainer
-                      config={{
-                        score: {
-                          label: "Score",
-                          color: "hsl(var(--chart-3))",
-                        },
-                      }}
-                      className="h-[300px]"
-                    >
-                      <LineChart
-                        data={trendData}
-                        margin={{ top: 20, right: 30, left: 20, bottom: 30 }}
-                      >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="month" />
-                        <YAxis
-                          domain={[0, 100]}
-                          tickFormatter={(value) => `${value}%`}
-                        />
-                        <Tooltip />
-                        <Legend />
-                        <Line
-                          type="monotone"
-                          dataKey="score"
-                          stroke="var(--color-score)"
-                          strokeWidth={2}
-                          activeDot={{ r: 8 }}
-                        />
-                      </LineChart>
-                    </ChartContainer>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Analyse av Trender</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div>
-                        <h4 className="font-medium">Nøkkeltall</h4>
-                        <div className="grid grid-cols-3 gap-4 mt-2">
-                          <div className="bg-gray-100 p-3 rounded-lg">
-                            <div className="text-sm text-gray-500">
-                              Gjennomsnittlig Vekst
-                            </div>
-                            <div className="text-xl font-bold">+3%</div>
-                          </div>
-                          <div className="bg-gray-100 p-3 rounded-lg">
-                            <div className="text-sm text-gray-500">
-                              Høyeste Score
-                            </div>
-                            <div className="text-xl font-bold">
-                              {Math.max(...trendData.map((d) => d.score))}%
-                            </div>
-                          </div>
-                          <div className="bg-gray-100 p-3 rounded-lg">
-                            <div className="text-sm text-gray-500">
-                              Laveste Score
-                            </div>
-                            <div className="text-xl font-bold">
-                              {Math.min(...trendData.map((d) => d.score))}%
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div>
-                        <h4 className="font-medium">Prognose</h4>
-                        <p className="text-gray-700 mt-1">
-                          Basert på nåværende trender, forventes {element.name}{" "}
-                          å fortsette en positiv vekst i de kommende månedene.
-                          Den sterkeste veksten ser ut til å være i
-                          aldersgruppen{" "}
-                          {
-                            element.demographics.reduce((prev, current) =>
-                              prev.score > current.score ? prev : current
-                            ).ageGroup
-                          }
-                          .
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-            </Tabs>
-          </DialogContent>
-        </Dialog>
         <button
-          onClick={() => setSelectedElement(element)}
+          onClick={() => {
+            toast.success(`Du har valgt ${element.name} som element!`);
+            setSelectedElement(element);
+          }}
           className="w-full bg-gray-100 flex justify-end p-2"
         >
           <PlusCircle
@@ -402,6 +129,279 @@ const ElementCard = ({
           />
         </button>
       </div>
+
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent className="sm:max-w-[800px] h-[80vh] overflow-y-auto p-4">
+          <DialogHeader>
+            <DialogTitle className="text-2xl">
+              {element.name} - Detaljert Analyse
+            </DialogTitle>
+            <DialogDescription>
+              Utforsk detaljert demografisk data og trender for {element.name}.
+            </DialogDescription>
+          </DialogHeader>
+
+          <Tabs defaultValue="overview" className="w-full">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="overview">Oversikt</TabsTrigger>
+              <TabsTrigger value="demographics">Demografi</TabsTrigger>
+              <TabsTrigger value="trends">Trender</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="overview" className="space-y-4 pt-4">
+              <div className="grid grid-cols-2 gap-4 w-full">
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-lg">Popularitet</CardTitle>
+                    <CardDescription>
+                      Nåværende popularitetsnivå
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-3xl font-bold">{0}%</div>
+                    <Progress value={0} className="h-2 mt-2" />
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-lg">Demografisk Score</CardTitle>
+                    <CardDescription>
+                      Gjennomsnittlig score på tvers av aldersgrupper
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-3xl font-bold">
+                      {averageDemographicScore.toFixed(1)}%
+                    </div>
+                    <Progress
+                      value={averageDemographicScore}
+                      className="h-2 mt-2"
+                    />
+                  </CardContent>
+                </Card>
+              </div>
+
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg">
+                    Demografisk Distribusjon
+                  </CardTitle>
+                  <CardDescription>
+                    Fordeling av score på tvers av aldersgrupper
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex justify-center">
+                    <ChartContainer
+                      config={{
+                        value: {
+                          label: "Verdi",
+                          color: "hsl(var(--chart-2))",
+                        },
+                      }}
+                      className="h-[300px] w-[300px]"
+                    >
+                      <PieChart width={300} height={300}>
+                        <Pie
+                          data={pieData}
+                          cx={150}
+                          cy={150}
+                          innerRadius={80}
+                          outerRadius={120}
+                          paddingAngle={5}
+                          dataKey="value"
+                          label={({ name, value }) => `${name}: ${value}%`}
+                        >
+                          {pieData.map((_, index) => (
+                            <Cell
+                              key={`cell-${index}`}
+                              fill={COLORS[index % COLORS.length]}
+                            />
+                          ))}
+                        </Pie>
+                        <Legend />
+                        <ChartTooltip content={<ChartTooltipContent />} />
+                      </PieChart>
+                    </ChartContainer>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="demographics" className="space-y-4 pt-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Detaljert Demografisk Analyse</CardTitle>
+                  <CardDescription>
+                    Score fordelt på aldersgrupper
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ChartContainer
+                    config={{
+                      score: {
+                        label: "Score",
+                        color: "hsl(var(--chart-1))",
+                      },
+                    }}
+                    className="h-[300px]"
+                  >
+                    <BarChart
+                      accessibilityLayer
+                      data={element.demographics.map((item) => ({
+                        ageGroup: item.ageGroup,
+                        score: item.score,
+                      }))}
+                      margin={{ top: 20, right: 30, left: 20, bottom: 30 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis
+                        dataKey="ageGroup"
+                        tickLine={false}
+                        axisLine={true}
+                        tick={{ fontSize: 12 }}
+                        tickMargin={10}
+                      />
+                      <YAxis
+                        domain={[0, 100]}
+                        tickFormatter={(value) => `${value}%`}
+                      />
+                      <Bar
+                        dataKey="score"
+                        fill="var(--color-score)"
+                        radius={[4, 4, 0, 0]}
+                      />
+                      <ChartTooltip
+                        cursor={false}
+                        content={<ChartTooltipContent />}
+                      />
+                    </BarChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
+
+              <div className="grid grid-cols-2 gap-4">
+                {element.demographics.map((demo) => (
+                  <Card key={demo.ageGroup}>
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-lg">
+                        Aldersgruppe: {demo.ageGroup}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-3xl font-bold">{demo.score}%</div>
+                      <Progress value={demo.score} className="h-2 mt-2" />
+                      <p className="text-sm text-gray-500 mt-2">
+                        {demo.score > 70
+                          ? "Høy popularitet i denne aldersgruppen"
+                          : demo.score > 40
+                          ? "Moderat popularitet i denne aldersgruppen"
+                          : "Lav popularitet i denne aldersgruppen"}
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </TabsContent>
+
+            <TabsContent value="trends" className="space-y-4 pt-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Popularitets Trender</CardTitle>
+                  <CardDescription>
+                    Utvikling over de siste 6 månedene
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ChartContainer
+                    config={{
+                      score: {
+                        label: "Score",
+                        color: "hsl(var(--chart-3))",
+                      },
+                    }}
+                    className="h-[300px]"
+                  >
+                    <LineChart
+                      data={trendData}
+                      margin={{ top: 20, right: 30, left: 20, bottom: 30 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="month" />
+                      <YAxis
+                        domain={[0, 100]}
+                        tickFormatter={(value) => `${value}%`}
+                      />
+                      <Tooltip />
+                      <Legend />
+                      <Line
+                        type="monotone"
+                        dataKey="score"
+                        stroke="var(--color-score)"
+                        strokeWidth={2}
+                        activeDot={{ r: 8 }}
+                      />
+                    </LineChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Analyse av Trender</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-medium">Nøkkeltall</h4>
+                      <div className="grid grid-cols-3 gap-4 mt-2">
+                        <div className="bg-gray-100 p-3 rounded-lg">
+                          <div className="text-sm text-gray-500">
+                            Gjennomsnittlig Vekst
+                          </div>
+                          <div className="text-xl font-bold">+3%</div>
+                        </div>
+                        <div className="bg-gray-100 p-3 rounded-lg">
+                          <div className="text-sm text-gray-500">
+                            Høyeste Score
+                          </div>
+                          <div className="text-xl font-bold">
+                            {Math.max(...trendData.map((d) => d.score))}%
+                          </div>
+                        </div>
+                        <div className="bg-gray-100 p-3 rounded-lg">
+                          <div className="text-sm text-gray-500">
+                            Laveste Score
+                          </div>
+                          <div className="text-xl font-bold">
+                            {Math.min(...trendData.map((d) => d.score))}%
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="font-medium">Prognose</h4>
+                      <p className="text-gray-700 mt-1">
+                        Basert på nåværende trender, forventes {element.name} å
+                        fortsette en positiv vekst i de kommende månedene. Den
+                        sterkeste veksten ser ut til å være i aldersgruppen{" "}
+                        {
+                          element.demographics.reduce((prev, current) =>
+                            prev.score > current.score ? prev : current
+                          ).ageGroup
+                        }
+                        .
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </DialogContent>
+      </Dialog>
     </>
   );
 };

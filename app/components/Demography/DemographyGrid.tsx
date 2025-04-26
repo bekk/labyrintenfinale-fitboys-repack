@@ -24,20 +24,12 @@ const DemographyGrid = ({
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {participants.map((participant) => (
-            <div
+            <DemographyCard
               key={participant.name}
-              className={`relative cursor-pointer transition-all rounded-xl duration-300 ${
-                selectedDemography?.name === participant.name
-                  ? "ring-2 ring-blue-500 scale-[1.02]"
-                  : "hover:shadow-lg"
-              }`}
-              onClick={() => setSelectedDemography(participant)}
-            >
-              <DemographyCard
-                key={participant.name}
-                participant={participant}
-              />
-            </div>
+              participant={participant}
+              selectedDemography={selectedDemography}
+              setSelectedDemography={setSelectedDemography}
+            />
           ))}
         </div>
       </div>
