@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Dialog, DialogContent, DialogTitle } from "./ui/dialog";
-import { MapPin, Users, Info, ArrowRight } from "lucide-react";
-import type { Location } from "../../backend/dataset/locations";
+import { Dialog, DialogContent, DialogTitle } from "../ui/dialog";
+import { Users, Info, ArrowRight } from "lucide-react";
+import type { Location } from "../../../backend/dataset/locations";
 import {
   Bar,
   BarChart,
@@ -40,23 +40,8 @@ const LocationCard = ({ location }: Props) => {
         other: 0,
       };
     }
-    acc[item.ageGroup][item.gender] += item.score;
     return acc;
   }, {} as Record<string, any>);
-
-  // Group demographics by gender for the pie chart
-  const genderData = location.demographics.reduce((acc, item) => {
-    if (!acc[item.gender]) {
-      acc[item.gender] = 0;
-    }
-    acc[item.gender] += item.score;
-    return acc;
-  }, {} as Record<string, number>);
-
-  const pieData = Object.entries(genderData).map(([name, value]) => ({
-    name,
-    value,
-  }));
 
   return (
     <>
@@ -148,44 +133,6 @@ const LocationCard = ({ location }: Props) => {
                       fill={GENDER_COLORS.other}
                     />
                   </BarChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold flex items-center mb-4">
-                <Users className="w-5 h-5 mr-2 text-teal-600" />
-                Kjønnsfordeling
-              </h3>
-              <div className="h-64 w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={pieData}
-                      cx="50%"
-                      cy="50%"
-                      labelLine={false}
-                      outerRadius={80}
-                      fill="#8884d8"
-                      dataKey="value"
-                      label={({ name, percent }) =>
-                        `${name} ${(percent * 100).toFixed(0)}%`
-                      }
-                    >
-                      {pieData.map((entry, index) => (
-                        <Cell
-                          key={`cell-${index}`}
-                          fill={
-                            GENDER_COLORS[
-                              entry.name as keyof typeof GENDER_COLORS
-                            ]
-                          }
-                        />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                    <Legend />
-                  </PieChart>
                 </ResponsiveContainer>
               </div>
             </div>

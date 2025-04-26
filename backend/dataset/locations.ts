@@ -7,7 +7,7 @@ export type Location = {
   demographics: Demography[];
 };
 
-const locations: Location[] = [
+export const locations: Location[] = [
   {
     name: "Ute i villmarken",
     image: "/public/images/villmarken.jpg",

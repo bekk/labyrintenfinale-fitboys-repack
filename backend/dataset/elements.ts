@@ -1,13 +1,13 @@
 import type { Demography } from "./demography";
 
-type Element = {
+export type Element = {
   name: string;
   image: string;
   description: string;
   demographics: Demography[];
 };
 
-const elements: Element[] = [
+export const elements: Element[] = [
   {
     name: "Utstemming",
     image: "/images/utstemming.jpg",
