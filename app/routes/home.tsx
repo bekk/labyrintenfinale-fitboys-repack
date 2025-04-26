@@ -7,7 +7,6 @@ import { ArrowRight, ArrowLeft, Check, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Progress } from "~/components/ui/progress";
 import { Button } from "~/components/ui/button";
-import DemographyGrid from "~/components/Demography/DemographyGrid";
 import LocationGrid from "~/components/Location/LocationGrid";
 import HostGrid from "~/components/Host/HostGrid";
 import ElementGrid from "~/components/Element/ElementGrid";
@@ -16,6 +15,7 @@ import type { Location } from "backend/dataset/locations";
 import type { Element } from "backend/dataset/elements";
 import type { Participant } from "backend/dataset/participants";
 import toast from "react-hot-toast";
+import ParticipantGrid from "~/components/Participant/ParticipantGrid";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Reniew" }];
@@ -39,7 +39,7 @@ export default function Home() {
     switch (currentStep) {
       case 1:
         if (!selectedDemography) {
-          toast.error("Vennligst velg en målgruppe.");
+          toast.error("Vennligst velg en deltakergruppe.");
           return;
         }
         break;
@@ -81,12 +81,27 @@ export default function Home() {
   };
 
   const steps = [
-    { number: 1, title: "Målgrupper" },
+    { number: 1, title: "Deltakere" },
     { number: 2, title: "Elementer" },
     { number: 3, title: "Steder" },
     { number: 4, title: "Vert" },
     { number: 5, title: "Resultat" },
   ];
+
+  const handleFinish = () => {
+    if (!selectedDemography || !selectedElement || !selectedLocation) {
+      toast.error("Vennligst velg alle alternativer.");
+      return;
+    }
+
+    //API kall her
+    console.log(
+      selectedDemography,
+      selectedElement,
+      selectedLocation,
+      selectedHost
+    );
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
@@ -149,7 +164,7 @@ export default function Home() {
           transition={{ duration: 0.3 }}
         >
           {currentStep === 1 && (
-            <DemographyGrid
+            <ParticipantGrid
               selectedDemography={selectedDemography}
               setSelectedDemography={setSelectedDemography}
             />
@@ -215,7 +230,7 @@ export default function Home() {
 
                     <div className="bg-gray-50 p-4 rounded-lg">
                       <h3 className="font-medium text-gray-900 mb-2">
-                        Målgruppe
+                        Deltaker
                       </h3>
                       <p className="text-gray-700">Unge voksne</p>
                     </div>
@@ -263,7 +278,7 @@ export default function Home() {
             </Button>
           ) : (
             <Button
-              onClick={() => navigate("/complete")}
+              onClick={handleFinish}
               className="flex items-center gap-2 cursor-pointer bg-green-700 hover:bg-green-800 text-white"
             >
               Fullfør <Check className="w-4 h-4" />

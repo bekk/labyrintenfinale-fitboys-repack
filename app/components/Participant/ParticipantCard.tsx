@@ -49,7 +49,7 @@ interface Props {
   setSelectedDemography: (demography: Participant | null) => void;
 }
 
-const DemographyCard = ({
+const ParticipantCard = ({
   participant,
   selectedDemography,
   setSelectedDemography,
@@ -490,7 +490,7 @@ const DemographyCard = ({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Målgruppe Analyse</CardTitle>
+                    <CardTitle>Deltaker Analyse</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
@@ -603,4 +603,4 @@ const DemographyCard = ({
   );
 };
 
-export default DemographyCard;
+export default ParticipantCard;
