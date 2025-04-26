@@ -10,7 +10,7 @@ export type Location = {
 const locations: Location[] = [
   {
     name: "Ute i villmarken",
-    image: "/images/villmarken.jpg",
+    image: "/public/images/villmarken.jpg",
     description: "Langt fra sivilisasjonen, midt i skoger, fjell og elver — perfekt for tøffe konkurranser.",
     demographics: [
       { ageGroup: "Barn", score: 28 },
@@ -23,7 +23,7 @@ const locations: Location[] = [
   },
   {
     name: "I en luksusvilla",
-    image: "/images/luksusvilla.jpg",
+    image: "/public/images/luksusvilla.jpg",
     description: "En overdådig villa med basseng og luksus, perfekt for realityshow om kjærlighet og intriger.",
     demographics: [
       { ageGroup: "Barn", score: 25 },
@@ -36,7 +36,7 @@ const locations: Location[] = [
   },
   {
     name: "På en øde øy",
-    image: "/images/odeoy.jpg",
+    image: "/public/images/odeoy.jpg",
     description: "En isolert øy langt fra folk — overlevelse, samarbeid og eventyr.",
     demographics: [
       { ageGroup: "Barn", score: 32 },
@@ -49,7 +49,7 @@ const locations: Location[] = [
   },
   {
     name: "På en gård",
-    image: "/images/gard.jpg",
+    image: "/public/images/gard.jpg",
     description: "Landlig idyll med dyr, jordbruk og gammeldags livsstil.",
     demographics: [
       { ageGroup: "Barn", score: 48 },
@@ -62,7 +62,7 @@ const locations: Location[] = [
   },
   {
     name: "I storbyen",
-    image: "/images/storbyen.jpg",
+    image: "/public/images/storbyen.jpg",
     description: "Travle gater, skyskrapere og storbyliv — perfekt for konkurranser i urban jungel.",
     demographics: [
       { ageGroup: "Barn", score: 33 },
@@ -75,7 +75,7 @@ const locations: Location[] = [
   },
   {
     name: "I en spøkelsesby",
-    image: "/images/spokelsesby.jpg",
+    image: "/public/images/spokelsesby.jpg",
     description: "Forlatt, mørkt og mystisk. Perfekt for skrekkprogrammer.",
     demographics: [
       { ageGroup: "Barn", score: 18 },
@@ -88,7 +88,7 @@ const locations: Location[] = [
   },
   {
     name: "I en futuristisk by",
-    image: "/images/futuristiskby.jpg",
+    image: "/public/images/futuristiskby.jpg",
     description: "Høyteknologi, smarte bygg, droner og roboter — fremtidens TV-programmer.",
     demographics: [
       { ageGroup: "Barn", score: 29 },
@@ -101,7 +101,7 @@ const locations: Location[] = [
   },
   {
     name: "På en romstasjon",
-    image: "/images/romstasjon.jpg",
+    image: "/public/images/romstasjon.jpg",
     description: "Simulert null-gravitasjon og ekstreme utfordringer i verdensrommet.",
     demographics: [
       { ageGroup: "Barn", score: 40 },
@@ -114,7 +114,7 @@ const locations: Location[] = [
   },
   {
     name: "På en gigantisk fornøyelsespark",
-    image: "/images/fornoyelsespark.jpg",
+    image: "/public/images/fornoyelsespark.jpg",
     description: "Adrenalin, fart og kaos — perfekt for energiske konkurranser.",
     demographics: [
       { ageGroup: "Barn", score: 45 },
@@ -127,7 +127,7 @@ const locations: Location[] = [
   },
   {
     name: "I en ødelagt industriby",
-    image: "/images/industri.jpg",
+    image: "/public/images/industri.jpg",
     description: "Forlatt fabrikklandskap, rust og betong — for tøffe utfordringer og overlevelsestema.",
     demographics: [
       { ageGroup: "Barn", score: 22 },
