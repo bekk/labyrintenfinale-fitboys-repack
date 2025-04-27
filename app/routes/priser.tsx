@@ -84,7 +84,7 @@ export default function PricingPage() {
               </Button>
               <Button
                 variant="outline"
-                className="text-white border-white bg-emerald-700 cursor-pointer hover:bg-teal-600"
+                className="text-white mt-auto border-white bg-emerald-700 cursor-pointer hover:bg-teal-600"
               >
                 Kontakt salg
               </Button>
@@ -101,7 +101,7 @@ const renderPricingCards = (isYearly: boolean) => {
     {
       name: "Starter",
       description: "Perfekt for mindre produksjoner og nybegynnere",
-      price: isYearly ? 990 : 1190,
+      price: isYearly ? "X" : "X",
       features: [
         "AI-basert innholdsanalyse",
         "Grunnleggende seertallsprediksjon",
@@ -119,7 +119,7 @@ const renderPricingCards = (isYearly: boolean) => {
     {
       name: "Profesjonell",
       description: "Ideell for etablerte produksjonsselskaper",
-      price: isYearly ? 2390 : 2990,
+      price: isYearly ? "X" : "X",
       features: [
         "Alt i Starter",
         "Automatisk redigering",
@@ -134,7 +134,7 @@ const renderPricingCards = (isYearly: boolean) => {
     {
       name: "Enterprise",
       description: "Skreddersydd for store TV-nettverk",
-      price: isYearly ? 4990 : 5990,
+      price: isYearly ? "X" : "X",
       features: [
         "Alt i Profesjonell",
         "Ubegrenset prosjekter",
