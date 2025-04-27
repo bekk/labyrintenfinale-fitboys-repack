@@ -110,7 +110,7 @@ const Navbar = () => {
       </div>
       <div
         className={cn(
-          "absolute mt-4 md:hidden w-full ",
+          "absolute mt-4 z-50 md:hidden w-full ",
           isMenuOpen ? "block" : "hidden"
         )}
       >
