@@ -51,12 +51,14 @@ export function DemographicComparisonChart({
         <Legend />
         <Bar
           dataKey="score"
+          name="Score"
           fill="var(--color-score)"
           radius={[4, 4, 0, 0]}
           barSize={20}
         />
         <Bar
           dataKey="marketShare"
+          name="Markedsandel (%)"
           fill="var(--color-marketShare)"
           radius={[4, 4, 0, 0]}
           barSize={20}
