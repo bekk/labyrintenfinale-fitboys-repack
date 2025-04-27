@@ -71,7 +71,7 @@ const Result = ({
 
               {selectedDemography && (
                 <div className="bg-gray-50 p-4 rounded-lg">
-                  <h3 className="font-medium text-gray-900 mb-2">Deltaker</h3>
+                  <h3 className="font-medium text-gray-900 mb-2">Målgruppe</h3>
                   <p className="text-gray-700">{selectedDemography.ageGroup}</p>
                 </div>
               )}

@@ -64,7 +64,7 @@ export default function Start() {
   const steps = [
     {
       number: 0,
-      title: "Velg demografi",
+      title: "Målgruppe",
     },
     { number: 1, title: "Deltakere" },
     { number: 2, title: "Elementer" },
