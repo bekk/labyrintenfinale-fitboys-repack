@@ -8,10 +8,11 @@ import type { Demography } from "backend/dataset/demography";
 import type { Element } from "backend/dataset/elements";
 import type { Participant } from "backend/dataset/participants";
 import { useState } from "react";
+import type { ResultBody } from "backend/api/ai";
 
 interface Props {
   isLoading: boolean;
-  response: string | null;
+  response: ResultBody | null;
   selectedLocation: Location | null;
   selectedHost: Host | null;
   selectedDemography: Demography | null;
@@ -39,11 +40,11 @@ const Result = ({
         <div className="text-sm text-gray-500">Steg 5</div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border p-6">
+      <div className="bg-white rounded-xl shadow-sm border py-8">
         {isLoading ? (
           <ResultLoading />
         ) : (
-          <div className="text-center py-8">
+          <div className="text-center ">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
               <Check className="w-8 h-8 text-green-600" />
             </div>
@@ -54,7 +55,7 @@ const Result = ({
               Vi har satt sammen det perfekte TV program basert på dine valg.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left my-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left my-8 p-4">
               {selectedLocation && (
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <h3 className="font-medium text-gray-900 mb-2">Sted</h3>
@@ -90,11 +91,19 @@ const Result = ({
               )}
             </div>
 
-            <div className="prose max-w-none text-left">
+            {response?.image && (
+              <img
+                src={response.image}
+                alt="Resultatbilde"
+                className="w-full max-h-[500px] object-cover  mb-6"
+              />
+            )}
+
+            <div className="prose max-w-none text-left p-4">
               {response ? (
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: response
+                    __html: response.text
                       .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
                       .replace(/\n/g, "<br />"),
                   }}

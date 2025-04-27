@@ -17,6 +17,7 @@ import ParticipantGrid from "~/components/Participant/ParticipantGrid";
 import DemographicGrid from "~/components/Demographic/DemographicGrid";
 import type { Demography } from "backend/dataset/demography";
 import Result from "~/components/Result/Result";
+import type { ResultBody } from "backend/api/ai";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Reniew" }];
@@ -36,14 +37,13 @@ export default function Start() {
   const [selectedDemography, setSelectedDemography] =
     useState<Demography | null>(null);
 
-  const [response, setResponse] = useState<string | null>(null);
+  const [response, setResponse] = useState<ResultBody | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const totalSteps = 5;
   const progress = (currentStep / totalSteps) * 100;
 
   const goToNextStep = () => {
-    console.log(currentStep + 1, steps.length - 1);
     if (currentStep + 1 === steps.length - 1) {
       handleSubmit();
     }
