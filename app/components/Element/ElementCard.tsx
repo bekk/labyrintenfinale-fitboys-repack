@@ -141,25 +141,12 @@ const ElementCard = ({
             </TabsList>
 
             <TabsContent value="overview" className="space-y-4 pt-4">
-              <div className="grid grid-cols-2 gap-4 w-full">
+              <div className=" gap-4 w-full">
                 <Card>
                   <CardHeader className="pb-2">
                     <CardTitle className="text-lg">Popularitet</CardTitle>
                     <CardDescription>
                       Nåværende popularitetsnivå
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-3xl font-bold">{0}%</div>
-                    <Progress value={0} className="h-2 mt-2" />
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-lg">Demografisk Score</CardTitle>
-                    <CardDescription>
-                      Gjennomsnittlig score på tvers av aldersgrupper
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -189,10 +176,10 @@ const ElementCard = ({
                       config={{
                         value: {
                           label: "Verdi",
-                          color: "hsl(var(--chart-2))",
+                          color: "#1E7A34",
                         },
                       }}
-                      className="h-[300px] w-[300px]"
+                      className="h-[400px] w-[400px]"
                     >
                       <PieChart width={300} height={300}>
                         <Pie
@@ -234,7 +221,7 @@ const ElementCard = ({
                     config={{
                       score: {
                         label: "Score",
-                        color: "hsl(var(--chart-1))",
+                        color: "#1E7A34",
                       },
                     }}
                     className="w-full"
@@ -310,7 +297,7 @@ const ElementCard = ({
                     config={{
                       score: {
                         label: "Score",
-                        color: "hsl(var(--chart-3))",
+                        color: "#1E7A34",
                       },
                     }}
                     className="w-full"
@@ -331,7 +318,7 @@ const ElementCard = ({
                       <Line
                         type="monotone"
                         dataKey="score"
-                        stroke="blue"
+                        stroke="green"
                         strokeWidth={2}
                         activeDot={{ r: 8 }}
                       />
@@ -353,13 +340,15 @@ const ElementCard = ({
                           <div className="text-sm text-gray-500">
                             Gjennomsnittlig Vekst
                           </div>
-                          <div className="text-xl font-bold">+3%</div>
+                          <div className="text-xl font-bold text-emerald-600">
+                            +3%
+                          </div>
                         </div>
                         <div className="bg-gray-100 p-3 rounded-lg">
                           <div className="text-sm text-gray-500">
                             Høyeste Score
                           </div>
-                          <div className="text-xl font-bold">
+                          <div className="text-xl font-bold text-emerald-600">
                             {Math.max(...trendData.map((d) => d.score))}%
                           </div>
                         </div>
@@ -367,7 +356,7 @@ const ElementCard = ({
                           <div className="text-sm text-gray-500">
                             Laveste Score
                           </div>
-                          <div className="text-xl font-bold">
+                          <div className="text-xl font-bold text-emerald-600">
                             {Math.min(...trendData.map((d) => d.score))}%
                           </div>
                         </div>

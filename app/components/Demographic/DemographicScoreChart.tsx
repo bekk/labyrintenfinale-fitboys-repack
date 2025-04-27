@@ -21,7 +21,7 @@ export function DemographicScoreChart({
       config={{
         score: {
           label: "Score",
-          color: "hsl(var(--chart-1))",
+          color: "#1E7A34",
         },
       }}
       className="h-full w-full"

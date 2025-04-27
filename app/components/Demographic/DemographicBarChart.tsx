@@ -19,7 +19,7 @@ export function DemographicBarChart({
       config={{
         score: {
           label: "Score",
-          color: "hsl(var(--chart-1))",
+          color: "#1E7A34",
         },
       }}
       className="h-full w-full"
@@ -34,23 +34,31 @@ export function DemographicBarChart({
           bottom: 5,
         }}
       >
+        <defs>
+          <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#28A745" stopOpacity={1} />
+            <stop offset="100%" stopColor="#81C784" stopOpacity={1} />
+          </linearGradient>
+        </defs>
         <XAxis
           dataKey="name"
           tickLine={false}
           axisLine={false}
           tickMargin={8}
+          stroke="#6C63FF"
         />
         <YAxis
           tickLine={false}
           axisLine={false}
           tickMargin={8}
           domain={[0, 100]}
+          stroke="#6C63FF"
         />
         <ChartTooltip content={<ChartTooltipContent />} cursor={false} />
         <Bar
           dataKey="score"
-          fill="var(--color-score)"
-          radius={[4, 4, 0, 0]}
+          fill="url(#colorScore)"
+          radius={[8, 8, 0, 0]}
           barSize={30}
         />
       </BarChart>

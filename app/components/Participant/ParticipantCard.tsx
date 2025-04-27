@@ -270,7 +270,7 @@ const ParticipantCard = ({
                         config={{
                           score: {
                             label: "Score",
-                            color: "hsl(var(--chart-1))",
+                            color: "#1E7A34",
                           },
                         }}
                         className=""
@@ -319,7 +319,7 @@ const ParticipantCard = ({
                       config={{
                         score: {
                           label: "Score",
-                          color: "hsl(var(--chart-1))",
+                          color: "#1E7A34",
                         },
                       }}
                       className="h-[300px]"

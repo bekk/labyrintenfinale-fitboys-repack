@@ -20,11 +20,11 @@ export function DemographicComparisonChart({
       config={{
         score: {
           label: "Score",
-          color: "hsl(var(--chart-1))",
+          color: "#1E7A34",
         },
         marketShare: {
           label: "Markedsandel (%)",
-          color: "hsl(var(--chart-2))",
+          color: "#4B0082",
         },
       }}
       className="h-full w-full"

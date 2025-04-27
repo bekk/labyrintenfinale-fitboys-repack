@@ -133,7 +133,7 @@ const LocationCard = ({
                     <Bar
                       dataKey="score"
                       name="Score"
-                      fill="#4f46e5"
+                      fill="#1E7A34"
                       radius={[4, 4, 0, 0]}
                     />
                   </BarChart>
