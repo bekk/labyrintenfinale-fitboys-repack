@@ -237,7 +237,7 @@ const ElementCard = ({
                         color: "hsl(var(--chart-1))",
                       },
                     }}
-                    className="h-[300px]"
+                    className="w-full"
                   >
                     <BarChart
                       accessibilityLayer
@@ -313,11 +313,12 @@ const ElementCard = ({
                         color: "hsl(var(--chart-3))",
                       },
                     }}
-                    className="h-[300px]"
+                    className="w-full"
                   >
                     <LineChart
                       data={trendData}
                       margin={{ top: 20, right: 30, left: 20, bottom: 30 }}
+                      className="w-full"
                     >
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="month" />
