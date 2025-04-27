@@ -1,14 +1,5 @@
 import { useState } from "react";
-import {
-  Menu,
-  X,
-  User,
-  Settings,
-  BarChart3,
-  Brain,
-  Database,
-  Sparkles,
-} from "lucide-react";
+import { Menu, X, BarChart3, Brain, Database, Sparkles } from "lucide-react";
 import { cn } from "~/lib/utils";
 
 const navlinks = [
@@ -70,26 +61,7 @@ const Navbar = () => {
               ))}
             </div>
 
-            <div className="hidden items-center space-x-4 md:flex">
-              {[
-                { icon: <User size={20} />, shape: "circle(50% at 50% 50%)" },
-                {
-                  icon: <Settings size={20} />,
-                  shape:
-                    "polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)",
-                },
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className="relative"
-                  style={{ clipPath: item.shape }}
-                >
-                  <button className="block bg-gray-50 p-3 text-gray-700 shadow-[3px_3px_6px_#d1d1d1,_-3px_-3px_6px_#ffffff] transition-all duration-300 hover:shadow-[inset_3px_3px_6px_#d1d1d1,_inset_-3px_-3px_6px_#ffffff] hover:text-emerald-600">
-                    {item.icon}
-                  </button>
-                </div>
-              ))}
-            </div>
+            <div className="hidden items-center space-x-4 md:flex"></div>
 
             <div
               className="relative md:hidden"
@@ -132,26 +104,7 @@ const Navbar = () => {
               </div>
             ))}
 
-            <div className="flex justify-around pt-4">
-              {[
-                { icon: <User size={20} />, shape: "circle(50% at 50% 50%)" },
-                {
-                  icon: <Settings size={20} />,
-                  shape:
-                    "polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)",
-                },
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className="relative"
-                  style={{ clipPath: item.shape }}
-                >
-                  <button className="block bg-gray-50 p-3 text-gray-700 shadow-[3px_3px_6px_#d1d1d1,_-3px_-3px_6px_#ffffff] transition-all duration-300 hover:shadow-[inset_3px_3px_6px_#d1d1d1,_inset_-3px_-3px_6px_#ffffff] hover:text-emerald-600">
-                    {item.icon}
-                  </button>
-                </div>
-              ))}
-            </div>
+            <div className="flex justify-around pt-4"></div>
           </div>
         </div>
       </div>
