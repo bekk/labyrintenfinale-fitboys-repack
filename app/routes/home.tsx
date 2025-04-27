@@ -75,13 +75,14 @@ export default function Home() {
             transition={{ duration: 1, delay: 0.2 }}
             className="text-5xl md:text-7xl font-bold tracking-tight mb-8 text-gray-900"
           >
-            Den beste ideen er alltid den neste
+            Den <strong className="text-emerald-600">beste</strong> ideen er
+            alltid den <strong className="text-emerald-600">neste</strong>
           </motion.h1>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.5 }}
-            className="w-24 h-1 bg-blue-500 mx-auto mb-8"
+            className="w-24 h-1 bg-emerald-500 mx-auto mb-8"
           />
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -89,9 +90,9 @@ export default function Home() {
             transition={{ duration: 1, delay: 0.7 }}
             className="text-2xl md:text-3xl leading-relaxed max-w-4xl mx-auto text-gray-600"
           >
-            Vi i <span className="text-blue-600 font-medium">ReNiew</span>{" "}
+            Vi i <span className="text-emerald-600 font-medium">Reniew</span>{" "}
             tilbyr et banebrytende
-            <span className="text-blue-600 font-medium">
+            <span className="text-emerald-600 font-medium">
               {" "}
               digitalt verktøy
             </span>{" "}
@@ -145,19 +146,19 @@ export default function Home() {
               <h2 className="text-3xl md:text-5xl font-bold mb-8 leading-tight text-gray-900">
                 Kunstig intelligens møter TV-produksjon
               </h2>
-              <div className="w-16 h-1 bg-blue-500 mb-8" />
+              <div className="w-16 h-1 bg-emerald-500 mb-8" />
               <p className="text-xl md:text-2xl leading-relaxed text-gray-600 mb-8">
                 Ved hjelp av{" "}
-                <span className="text-blue-600 font-medium">
+                <span className="text-emerald-600 font-medium">
                   kunstig intelligens
                 </span>{" "}
                 og{" "}
-                <span className="text-blue-600 font-medium">
+                <span className="text-emerald-600 font-medium">
                   omfattende datagrunnlag
                 </span>
                 , gir vi produksjonsteam innsikt i{" "}
-                <span className="text-blue-600 font-medium">hva</span> som har
-                fungert tidligere.
+                <span className="text-emerald-600 font-medium">hva</span> som
+                har fungert tidligere.
               </p>
               <p className="text-xl md:text-2xl leading-relaxed text-gray-600">
                 Vi analyserer hvilke programledere som har lykkes, og hvilke
@@ -256,7 +257,7 @@ export default function Home() {
 
               <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-8 py-4">
                 <div className="flex items-center">
-                  <div className="w-3 h-3 rounded-full bg-blue-500 mr-2"></div>
+                  <div className="w-3 h-3 rounded-full bg-emerald-500 mr-2"></div>
                   <span className="text-sm text-gray-600 p-10">Vekst</span>
                 </div>
                 <div className="flex items-center">
@@ -286,11 +287,16 @@ export default function Home() {
               <br />
               Bedre beslutninger.
             </h2>
-            <div className="w-16 h-1 bg-blue-500 mx-auto mb-12" />
+            <div className="w-16 h-1 bg-emerald-500 mx-auto mb-12" />
             <p className="text-xl md:text-3xl leading-relaxed text-gray-600 mb-16">
-              Vårt verktøy hjelper produksjonsteam med å utvikle sterkere
-              konsepter, treffe riktige beslutninger om cast og innhold, og
-              identifisere nye, lovende publikumsgrupper for suksess.
+              Vårt verktøy{" "}
+              <strong className="text-emerald-600">hjelper </strong>
+              produksjonsteam med å utvikle{" "}
+              <strong className="text-emerald-600">sterkere</strong> konsepter,
+              treffe <strong className="text-emerald-600">riktige </strong>
+              beslutninger om cast og innhold, og identifisere nye, lovende
+              publikumsgrupper for{" "}
+              <strong className="text-emerald-600">suksess!</strong>
             </p>
 
             <motion.div
@@ -307,8 +313,10 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100"
               >
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <span className="text-blue-600 text-2xl font-bold">01</span>
+                <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <span className="text-emerald-600 text-2xl font-bold">
+                    01
+                  </span>
                 </div>
                 <h3 className="text-xl font-bold mb-4 text-gray-900">
                   Dataanalyse
