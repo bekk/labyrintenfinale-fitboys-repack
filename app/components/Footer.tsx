@@ -82,23 +82,8 @@ const Footer = () => {
           <h3 className="font-semibold mb-4">Produkter</h3>
           <ul className="space-y-2">
             <li>
-              <a href="#" className="text-gray-600 hover:text-teal-600">
-                AI-analyse
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-gray-600 hover:text-teal-600">
-                Innholdsgenerering
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-gray-600 hover:text-teal-600">
-                Automatisk redigering
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-gray-600 hover:text-teal-600">
-                Seertallsprediksjon
+              <a href="/priser" className="text-gray-600 hover:text-teal-600">
+                Priser
               </a>
             </li>
           </ul>
@@ -108,23 +93,8 @@ const Footer = () => {
           <h3 className="font-semibold mb-4">Ressurser</h3>
           <ul className="space-y-2">
             <li>
-              <a href="#" className="text-gray-600 hover:text-teal-600">
-                Dokumentasjon
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-gray-600 hover:text-teal-600">
-                Veiledninger
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-gray-600 hover:text-teal-600">
-                Blogg
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-gray-600 hover:text-teal-600">
-                Kundehistorier
+              <a href="/start" className="text-gray-600 hover:text-teal-600">
+                Start
               </a>
             </li>
           </ul>
@@ -134,23 +104,8 @@ const Footer = () => {
           <h3 className="font-semibold mb-4">Selskap</h3>
           <ul className="space-y-2">
             <li>
-              <a href="#" className="text-gray-600 hover:text-teal-600">
+              <a href="/" className="text-gray-600 hover:text-teal-600">
                 Om oss
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-gray-600 hover:text-teal-600">
-                Karriere
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-gray-600 hover:text-teal-600">
-                Kontakt
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-gray-600 hover:text-teal-600">
-                Personvern
               </a>
             </li>
           </ul>
@@ -158,7 +113,7 @@ const Footer = () => {
       </div>
 
       <div className="mt-12 pt-8 border-t border-gray-200 text-center text-gray-500">
-        <p>© 2025 Reniew. Alle rettigheter reservert.</p>
+        <p>© {new Date().getFullYear()} Reniew. Alle rettigheter reservert.</p>
       </div>
     </footer>
   );
